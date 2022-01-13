@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:24 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 12:08:25 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:51:04 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 t_link	*link_new_node(char *str)
 {
@@ -43,8 +43,22 @@ void	free_link(t_link **link)
 
 	while (*link)
 	{
+		free((*link)->str);
 		tmp = *link;
 		*link = (*link)->next;
 		free(tmp);
 	}
+}
+
+int	link_size(t_link *link)
+{
+	int		count;
+
+	count = 0;
+	while (link)
+	{
+		count++;
+		link = link->next;
+	}
+	return (count);
 }

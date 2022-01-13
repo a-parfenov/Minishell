@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:45:29 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 20:36:39 by aleslie          ###   ########.fr       */
+/*   Created: 2022/01/13 23:03:56 by aleslie           #+#    #+#             */
+/*   Updated: 2022/01/13 23:20:17 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **env)
+void	command_pwd(t_obj *o)
 {
-	char				*input;
-	t_obj				*o;
+	int	i;
 
-	(void)argv;
-	(void)argc;
-	while (1)
+	i = -1;
+	while (o->env[++i])
 	{
-		input = readline(SHELL_NAME);
-		if (!input)
-			break;
-		if (ft_strlen(input) != 0)
-			add_history(input);
-		o = init_o(env);
-		if (!o)
-			exit(EXIT_FAILURE);
-		parse(input, o);
+		if (ft_strncmp(o->env[i], "PWD=", 4) == 0)
+		{
+			ft_putstr_fd(o->env[i] + 4, 1);
+			ft_putstr_fd("\n", 1);
+			return ;
+		}
 	}
 }

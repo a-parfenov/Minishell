@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:44:24 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 11:44:25 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:51:57 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	open_read_file(char *file, t_obj *o)
 {

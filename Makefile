@@ -20,12 +20,16 @@ SRCS	=	src/main.c\
 			parsing/parse_utils.c\
 			parsing/parse_utils_two.c\
 			parsing/get_next_line.c\
+			logic/env.c\
+			logic/pwd.c
 
 OBJS	=	$(SRCS:.c=.o)
 
-HEADER	=	./include/minishell.h
+INCLUDE	=	include/
 
-CFLAGS	=	-Wall -Wextra -Werror -I $(HEADER)
+HEADER	=	minishell.h
+
+CFLAGS	=	-Wall -Wextra -Werror
 
 CC		=	gcc
 
@@ -40,19 +44,19 @@ PURPLE		=	"\033[1;35m"
 GRAY		=	"\033[1;30m"
 END			=	"\033[0m"
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re 
 
 all: $(LIB) $(NAME)
 
-$(NAME):	$(OBJS) $(HEADER)
+$(NAME):	$(OBJS)
 			@$(CC) $(CFLAGS) -lreadline -L libft -lft $(OBJS) -o $@
 			@echo ${GREEN} "\n< Minishell binary -> done >\n" ${END}
 
 $(LIB):
 			@make -C libft
 
-%.o: %.c $(HEADER)
-			@$(CC) $(CFLAGS) -c $< -o $@
+%.o:		%.c $(INCLUDE)$(HEADER)
+			@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE)
 
 clean:
 			@make $@ -C libft

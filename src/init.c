@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:18 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 12:08:23 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 22:47:16 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 t_obj	*init_o(char **env)
 {

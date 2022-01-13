@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:34 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 12:08:29 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:50:58 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 t_pipes	*pipes_new_node(t_link *link)
 {
@@ -19,7 +19,7 @@ t_pipes	*pipes_new_node(t_link *link)
 	new = malloc(sizeof(t_pipes));
 	if (!new)
 		return (NULL);
-	new->cmd = link;
+	new->link = link;
 	new->next = NULL;
 	return (new);
 }
@@ -43,8 +43,22 @@ void	free_pipes(t_pipes **pipes)
 
 	while (*pipes)
 	{
+		free_link(&(*pipes)->link);
 		tmp = *pipes;
 		*pipes = (*pipes)->next;
 		free(tmp);
 	}
+}
+
+int	pipes_size(t_pipes *pipes)
+{
+	int		count;
+
+	count = 0;
+	while (pipes)
+	{
+		count++;
+		pipes = pipes->next;
+	}
+	return (count);
 }

@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 12:06:25 by teusebio          #+#    #+#             */
-/*   Updated: 2022/01/13 11:43:02 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:52:05 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static int	check_unclosed(char *start, int i, char *input)
 {

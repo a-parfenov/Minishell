@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:10 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 12:08:21 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:51:13 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	exe(t_obj *o)
 {

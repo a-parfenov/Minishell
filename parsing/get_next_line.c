@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 10:15:45 by teusebio          #+#    #+#             */
-/*   Updated: 2022/01/13 11:43:08 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:52:13 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static char	*ft_read_from_fd(int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 12:22:11 by teusebio          #+#    #+#             */
-/*   Updated: 2022/01/13 11:43:10 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:52:17 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 char	*delete_front_spaces(char *input)
 {

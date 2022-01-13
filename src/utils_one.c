@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:39 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 12:08:32 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:50:54 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	free_arr(char **arr)
 {

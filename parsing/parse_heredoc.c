@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:44:16 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 11:44:19 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/13 20:52:01 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	read_heredoc(char *limit, t_obj *o)
 {
