@@ -1,7 +1,11 @@
 NAME	=	minishell
 
-SRCS	=	main.c\
-			init.c exe.c\
+SRCS	=	src/main.c\
+			src/init.c\
+			src/exe.c\
+			src/utils_one.c\
+			src/link.c\
+			src/pipes.c\
 			parsing/parse.c\
 			parsing/delete_spaces.c\
 			parsing/parse_quote.c\
@@ -16,13 +20,10 @@ SRCS	=	main.c\
 			parsing/parse_utils.c\
 			parsing/parse_utils_two.c\
 			parsing/get_next_line.c\
-			utils_one.c\
-			link.c\
-			pipes.c\
 
 OBJS	=	$(SRCS:.c=.o)
 
-HEADER	=	minishell.h
+HEADER	=	./include/minishell.h
 
 CFLAGS	=	-Wall -Wextra -Werror -I $(HEADER)
 
@@ -30,25 +31,38 @@ CC		=	gcc
 
 LIB		=	libft/libft.a
 
+RED			=	"\033[1;31m"
+BLUE		=	"\033[1;34m"
+YELLOW		=	"\033[1;33m"
+WHITE		=	"\033[1;37m"
+GREEN		=	"\033[1;32m"
+PURPLE		=	"\033[1;35m"
+GRAY		=	"\033[1;30m"
+END			=	"\033[0m"
+
 .PHONY: all clean fclean re
 
 all: $(LIB) $(NAME)
 
-$(NAME): $(OBJS) $(HEADER)
-	$(CC) $(CFLAGS) -lreadline -L libft -lft $(OBJS) -o $@
+$(NAME):	$(OBJS) $(HEADER)
+			@$(CC) $(CFLAGS) -lreadline -L libft -lft $(OBJS) -o $@
+			@echo ${GREEN} "\n< Minishell binary -> done >\n" ${END}
 
 $(LIB):
-	make -C libft
+			@make -C libft
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+			@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make $@ -C libft
-	$(RM) $(OBJS) OBJS
+			@make $@ -C libft
+			@$(RM) $(OBJS) OBJS
+			@echo ${YELLOW} "\n< .o files -> removed >\n" ${END}
 
 fclean: clean
-	make $@ -C libft
-	$(RM) $(NAME) NAME
+			@make $@ -C libft
+			@$(RM) $(NAME) NAME
+			@echo ${YELLOW} "\n< Binaries -> removed >\n" ${END}
 
 re: fclean all
+			@echo ${PURPLE} "\n< Remake done >\n" ${END}

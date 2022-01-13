@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_spases.c                                     :+:      :+:    :+:   */
+/*   utils_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:44:46 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 11:44:49 by aleslie          ###   ########.fr       */
+/*   Created: 2022/01/13 11:45:39 by aleslie           #+#    #+#             */
+/*   Updated: 2022/01/13 12:08:32 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*parse_spaces(char *input, int *index, t_obj *o)
+void	free_arr(char **arr)
 {
-	char	*start;
-	char	*end;
-	int		i;
+	int	i;
 
-	i = *index;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	if (!o->link)
-		o->link = link_new_node(start);
-	else
-		link_add_back(&o->link, link_new_node(start));
-	pass_space_one(input, &i);
-	end = ft_substr(input, i, ft_strlen(input));
-	free(input);
-	*index = -1;
-	return (end);
+	if (arr)
+	{
+		i = 0;
+		while (arr[i])
+			free(arr[i++]);
+		free(arr);
+	}
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	if (s1 && s2)
+	{
+		i = 0;
+		while (s1[i] == s2[i] && s1[i] && s2[i])
+			i++;
+		return (s1[i] - s2[i]);
+	}
+	return (1);
 }

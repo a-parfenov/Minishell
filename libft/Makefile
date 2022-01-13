@@ -44,18 +44,19 @@ CC			= gcc
 all: $(NAME)
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(HEADER)
-	ar rcs $(NAME) $?
+	@ar rcs $(NAME) $?
+	@echo "\033[1;32m\n< Compiled libft >\n\033[0m"
 
 bonus:
-	make OBJS="$(BONUS_OBJS)" all
+	@make OBJS="$(BONUS_OBJS)" all
 
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	@$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all

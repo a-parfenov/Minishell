@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_spases.c                                     :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:44:46 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 11:44:49 by aleslie          ###   ########.fr       */
+/*   Created: 2022/01/13 11:45:29 by aleslie           #+#    #+#             */
+/*   Updated: 2022/01/13 12:08:27 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*parse_spaces(char *input, int *index, t_obj *o)
+int main(int argc, char **argv, char **env)
 {
-	char	*start;
-	char	*end;
-	int		i;
+	char				*input;
+	t_obj				*o;
 
-	i = *index;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	if (!o->link)
-		o->link = link_new_node(start);
-	else
-		link_add_back(&o->link, link_new_node(start));
-	pass_space_one(input, &i);
-	end = ft_substr(input, i, ft_strlen(input));
-	free(input);
-	*index = -1;
-	return (end);
+	(void)argv;
+	(void)argc;
+	while (1)
+	{
+		input = readline(SHELL_NAME);
+		if (!input)
+			break;
+		if (ft_strlen(input) != 0)
+			add_history(input);
+		o = init_o(env);
+		if (!o)
+			exit(EXIT_FAILURE);
+		parse(input, o);
+	}
 }

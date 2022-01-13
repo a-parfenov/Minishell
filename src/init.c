@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_spases.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:44:46 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 11:44:49 by aleslie          ###   ########.fr       */
+/*   Created: 2022/01/13 11:45:18 by aleslie           #+#    #+#             */
+/*   Updated: 2022/01/13 12:08:23 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*parse_spaces(char *input, int *index, t_obj *o)
+t_obj	*init_o(char **env)
 {
-	char	*start;
-	char	*end;
-	int		i;
+	t_obj	*o;
 
-	i = *index;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	if (!o->link)
-		o->link = link_new_node(start);
-	else
-		link_add_back(&o->link, link_new_node(start));
-	pass_space_one(input, &i);
-	end = ft_substr(input, i, ft_strlen(input));
-	free(input);
-	*index = -1;
-	return (end);
+	o = malloc(sizeof(t_obj));
+	if (!o)
+		return (NULL);
+	o->env = env;
+	o->heredoc = NULL;
+	o->fd_in = 0;
+	o->fd_out = 1;
+	o->fd_re_out = 1;
+	o->is_heredoc = 0;
+	o->is_redirect = 0;
+	o->pipes = NULL;
+	o->link = NULL;
+	return (o);
 }

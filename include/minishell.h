@@ -8,7 +8,8 @@
 # include <string.h>
 # include <signal.h>
 # include <readline/readline.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
+
 # define SHELL_NAME "minishell% "
 # define ERROR_NAME "minishell"
 # define ONE_TOKEN "Error! Unclosed quote"

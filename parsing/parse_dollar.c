@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teusebio <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 12:21:28 by teusebio          #+#    #+#             */
-/*   Updated: 2022/01/10 12:21:30 by teusebio         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:43:05 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 static char	*init_dollar(char *start, int i)
 {

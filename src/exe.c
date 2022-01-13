@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_spases.c                                     :+:      :+:    :+:   */
+/*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 11:44:46 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 11:44:49 by aleslie          ###   ########.fr       */
+/*   Created: 2022/01/13 11:45:10 by aleslie           #+#    #+#             */
+/*   Updated: 2022/01/13 12:08:21 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*parse_spaces(char *input, int *index, t_obj *o)
+void	exe(t_obj *o)
 {
-	char	*start;
-	char	*end;
-	int		i;
+	pid_t pid;
+	int status;
 
-	i = *index;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	if (!o->link)
-		o->link = link_new_node(start);
+	pid = fork();
+	if (pid < 0)
+	{
+		printf("error\n");
+	}
+	else if (pid > 0)
+	{
+		wait(&status);
+		printf("status is %d\n", status);
+	}
 	else
-		link_add_back(&o->link, link_new_node(start));
-	pass_space_one(input, &i);
-	end = ft_substr(input, i, ft_strlen(input));
-	free(input);
-	*index = -1;
-	return (end);
+	{
+		char *arg[3] = {"pwd", "-L", NULL};
+		execve("/bin/pwd", arg, o->env);
+		perror(ERROR_NAME);
+		exit(127);
+	}
 }

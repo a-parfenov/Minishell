@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_dquote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teusebio <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 12:06:25 by teusebio          #+#    #+#             */
-/*   Updated: 2022/01/10 12:06:27 by teusebio         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:43:02 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 static int	check_unclosed(char *start, int i, char *input)
 {
