@@ -31,8 +31,22 @@ void	free_link(t_link **link)
 
 	while (*link)
 	{
+		free((*link)->str);
 		tmp = *link;
 		*link = (*link)->next;
 		free(tmp);
 	}
+}
+
+int	link_size(t_link *link)
+{
+	int		count;
+
+	count = 0;
+	while (link)
+	{
+		count++;
+		link = link->next;
+	}
+	return (count);
 }

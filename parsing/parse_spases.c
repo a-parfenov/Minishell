@@ -9,10 +9,7 @@ char	*parse_spaces(char *input, int *index, t_obj *o)
 	i = *index;
 	start = ft_strdup(input);
 	start[i++] = 0;
-	if (!o->link)
-		o->link = link_new_node(start);
-	else
-		link_add_back(&o->link, link_new_node(start));
+	put_str_to_link(start, o);
 	pass_space_one(input, &i);
 	end = ft_substr(input, i, ft_strlen(input));
 	free(input);

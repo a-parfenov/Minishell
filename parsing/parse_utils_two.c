@@ -47,6 +47,17 @@ int	check_len(char *s)
 
 void	put_str_to_link(char *str, t_obj *o)
 {
-	(void )o;
-	printf("%s\n", str);
+	if (!o->link)
+		o->link = link_new_node(str);
+	else
+		link_add_back(&o->link, link_new_node(str));
+}
+
+void	put_link_to_pipe(t_obj *o)
+{
+	if (!o->pipes)
+		o->pipes = pipes_new_node(o->link);
+	else
+		pipes_add_back(&o->pipes, pipes_new_node(o->link));
+	o->link = NULL;
 }

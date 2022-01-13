@@ -7,7 +7,7 @@ t_pipes	*pipes_new_node(t_link *link)
 	new = malloc(sizeof(t_pipes));
 	if (!new)
 		return (NULL);
-	new->cmd = link;
+	new->link = link;
 	new->next = NULL;
 	return (new);
 }
@@ -31,8 +31,22 @@ void	free_pipes(t_pipes **pipes)
 
 	while (*pipes)
 	{
+		free_link(&(*pipes)->link);
 		tmp = *pipes;
 		*pipes = (*pipes)->next;
 		free(tmp);
 	}
+}
+
+int	pipes_size(t_pipes *pipes)
+{
+	int		count;
+
+	count = 0;
+	while (pipes)
+	{
+		count++;
+		pipes = pipes->next;
+	}
+	return (count);
 }

@@ -28,7 +28,7 @@ typedef	struct s_link
 
 typedef struct s_pipes
 {
-	t_link			*cmd;
+	t_link			*link;
 	struct s_pipes	*next;
 }					t_pipes;
 
@@ -67,14 +67,18 @@ int		check_token_two(char c);
 void	pass_space_one(char *input, int *i);
 void	pass_space_two(char *input, int *i);
 char	*build_file(char *file);
+void	put_str_to_link(char *str, t_obj *o);
+void	put_link_to_pipe(t_obj *o);
 char	*get_next_line(int fd);
 
 t_link	*link_new_node(char *command);
 void	link_add_back(t_link **link, t_link *new_node);
 void	free_link(t_link **link);
+int		link_size(t_link *link);
 t_pipes	*pipes_new_node(t_link *link);
 void	pipes_add_back(t_pipes **pipes, t_pipes *new_node);
 void	free_pipes(t_pipes **pipes);
+int		pipes_size(t_pipes *pipes);
 
 void	free_arr(char **arr);
 int		ft_strcmp(char *s1, char *s2);
