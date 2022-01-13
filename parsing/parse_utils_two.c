@@ -44,3 +44,8 @@ int	check_len(char *s)
 	}
 	return (0);
 }
+
+void	put_str_to_link(char *str, t_obj *o)
+{
+
+}

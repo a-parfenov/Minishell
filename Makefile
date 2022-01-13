@@ -1,4 +1,4 @@
-NAME	= minishell
+NAME	=	minishell
 
 SRCS	=	main.c\
 			init.c exe.c\
@@ -17,16 +17,18 @@ SRCS	=	main.c\
 			parsing/parse_utils_two.c\
 			parsing/get_next_line.c\
 			utils_one.c\
+			link.c\
+			pipes.c\
 
-OBJS	= $(SRCS:.c=.o)
+OBJS	=	$(SRCS:.c=.o)
 
-HEADER	= minishell.h
+HEADER	=	minishell.h
 
-CFLAGS	= -Wall -Wextra -Werror -I $(HEADER)
+CFLAGS	=	-Wall -Wextra -Werror -I $(HEADER)
 
-CC		= gcc
+CC		=	gcc
 
-LIB		= libft/libft.a
+LIB		=	libft/libft.a
 
 .PHONY: all clean fclean re
 
@@ -42,9 +44,11 @@ $(LIB):
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
+	make $@ -C libft
+	$(RM) $(OBJS) OBJS
 
 fclean: clean
-	$(RM) $(NAME)
+	make $@ -C libft
+	$(RM) $(NAME) NAME
 
 re: fclean all

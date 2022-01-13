@@ -37,12 +37,15 @@ char	*combine(char *input, t_obj *o)
 			return (NULL);
 		i++;
 	}
+	if (!o->link)
+		o->link = link_new_node(input);
+	else
+		link_add_back(&o->link, link_new_node(input));
 	return (input);
 }
 
 void	parse(char *input, t_obj *o)
 {
-//	int len = ft_strlen(input);
 	printf("input start %s\n", input);
 	input = delete_spaces(input);
 	input = combine(input, o);
@@ -52,13 +55,12 @@ void	parse(char *input, t_obj *o)
 		free(o);
 		return ;
 	}
+	while (o->link)
+	{
+		printf("%s\n", o->link->str);
+		o->link = o->link->next;
+	}
 	printf("input end %s\n", input);
-//	int i = 0;
-//	while (i < len)
-//	{
-//		printf("%c\n", input[i]);
-//		i++;
-//	}
 //		exe(o);
 	free_arr(o->heredoc);
 	free(input);

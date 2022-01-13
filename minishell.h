@@ -20,11 +20,17 @@
 # define NEW_TOKEN "syntax error near unexpected token `newline'"
 # define BUFFER_SIZE 1024
 
-typedef struct s_list
+typedef	struct s_link
 {
-	char			**commands;
-	struct s_list	*next;
-}					t_list;
+	char			*str;
+	struct s_link	*next;
+}					t_link;
+
+typedef struct s_pipes
+{
+	t_link			*cmd;
+	struct s_pipes	*next;
+}					t_pipes;
 
 typedef struct s_obj
 {
@@ -35,7 +41,8 @@ typedef struct s_obj
 	int		fd_re_out;
 	int		is_heredoc;
 	int		is_redirect;
-	t_list	*pipes;
+	t_pipes	*pipes;
+	t_link	*link;
 }			t_obj;
 
 t_obj	*init_o(char **env);
@@ -61,6 +68,13 @@ void	pass_space_one(char *input, int *i);
 void	pass_space_two(char *input, int *i);
 char	*build_file(char *file);
 char	*get_next_line(int fd);
+
+t_link	*link_new_node(char *command);
+void	link_add_back(t_link **link, t_link *new_node);
+void	free_link(t_link **link);
+t_pipes	*pipes_new_node(t_link *link);
+void	pipes_add_back(t_pipes **pipes, t_pipes *new_node);
+void	free_pipes(t_pipes **pipes);
 
 void	free_arr(char **arr);
 int		ft_strcmp(char *s1, char *s2);

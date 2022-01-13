@@ -2,13 +2,20 @@
 
 char	*parse_spaces(char *input, int *index, t_obj *o)
 {
-	char	*command;
+	char	*start;
+	char	*end;
 	int		i;
 
-	(void )o;
 	i = *index;
-	command = ft_strdup(input);
-	command[i++] = 0;
-	printf("command %s\n", command);
-	return (input);
+	start = ft_strdup(input);
+	start[i++] = 0;
+	if (!o->link)
+		o->link = link_new_node(start);
+	else
+		link_add_back(&o->link, link_new_node(start));
+	pass_space_one(input, &i);
+	end = ft_substr(input, i, ft_strlen(input));
+	free(input);
+	*index = -1;
+	return (end);
 }
