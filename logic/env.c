@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 20:31:12 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 23:15:45 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/14 12:18:16 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	command_env(t_obj	*o)
 	int	i;
 
 	i = -1;
+	// write(1, "***\n", 4);
 	while (o->env[++i])
 		ft_putendl_fd(o->env[i], 1);
 }

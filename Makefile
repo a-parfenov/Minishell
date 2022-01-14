@@ -22,7 +22,8 @@ SRCS	=	src/main.c\
 			parsing/get_next_line.c\
 			logic/env.c\
 			logic/pwd.c\
-			logic/echo.c
+			logic/echo.c\
+			logic/cd.c
 
 OBJS	=	$(SRCS:.c=.o)
 

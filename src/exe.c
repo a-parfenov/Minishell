@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:10 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 11:47:36 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/14 17:29:09 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 void	exe(t_obj *o)
 {
-	t_pipes *tmp = o->pipes;
+	// t_pipes *tmp = o->pipes->arg;
 	
 	while (o->pipes)
 	{
-		while (o->pipes->link)
+		if (ft_strncmp(o->pipes->arg[0], "env", 3) == 0)
+			command_env(o);
+		else if (ft_strncmp(o->pipes->arg[0], "pwd", 3) == 0)
+			command_pwd(o);
+		else if (ft_strncmp(o->pipes->arg[0], "echo", 4) == 0)
 		{
-			if (ft_strncmp(o->pipes->link->str, "env", 3) == 0)
-				command_env(o);
-			else if (ft_strncmp(o->pipes->link->str, "pwd", 3) == 0)
-				command_pwd(o);
-			else if (ft_strncmp(o->pipes->link->str, "echo", 4) == 0)
-				// command_echo(sp);
-			o->pipes->link = o->pipes->link->next;
+			// write(1, "\n+++\n", 5);
+			command_echo(o->pipes);
 		}
+		else if (ft_strncmp(o->pipes->arg[0], "cd", 2) == 0)
+			command_cd(o);
 		o->pipes = o->pipes->next;
 	}
-	free_pipes(&tmp);
+	// free_pipes(&tmp);
 }
