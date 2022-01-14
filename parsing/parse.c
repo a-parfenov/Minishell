@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/13 11:45:04 by aleslie           #+#    #+#             */
+/*   Updated: 2022/01/14 10:33:23 by aleslie          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
@@ -57,7 +68,7 @@ void	parse(char *input, t_obj *o)
 		free(o);
 		return ;
 	}
-	printf("input start = %s\n", input);
+	// printf("input start = %s\n", input);
 	input = delete_spaces(input);
 	input = combine(input, o);
 	if (!input)
@@ -68,6 +79,7 @@ void	parse(char *input, t_obj *o)
 		free_o(o);
 		return ;
 	}
+
 	printf("%d\n", pipes_size(o->pipes));
 //	while (o->pipes)
 //	{
