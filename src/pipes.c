@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
-t_pipes	*pipes_new_node(t_link *link)
+t_pipes	*pipes_new_node(char **arg)
 {
 	t_pipes	*new;
 
 	new = malloc(sizeof(t_pipes));
 	if (!new)
 		return (NULL);
-	new->link = link;
+	new->arg = arg;
 	new->next = NULL;
 	return (new);
 }
@@ -43,7 +43,7 @@ void	free_pipes(t_pipes **pipes)
 
 	while (*pipes)
 	{
-		free_link(&(*pipes)->link);
+		free_arr((*pipes)->arg);
 		tmp = *pipes;
 		*pipes = (*pipes)->next;
 		free(tmp);

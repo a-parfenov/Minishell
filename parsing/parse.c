@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	free_o(t_obj *o)
 {
@@ -65,32 +65,20 @@ void	parse(char *input, t_obj *o)
 		printf("%d\n", pipes_size(o->pipes));
 		if (!o->pipes)
 			free_link(&o->link);
-//		t_pipes *tmp = o->pipes;
-//		while (o->pipes)
-//		{
-//			while (o->pipes->link)
-//			{
-//				printf("%s\n", o->pipes->link->str);
-//				o->pipes->link = o->pipes->link->next;
-//			}
-//			o->pipes = o->pipes->next;
-//		}
-//		free_pipes(&tmp);
 		free_o(o);
 		return ;
 	}
 	printf("%d\n", pipes_size(o->pipes));
-//	t_pipes *tmp = o->pipes;
 //	while (o->pipes)
 //	{
-//		while (o->pipes->link)
+//		int i = 0;
+//		while (o->pipes->arg[i])
 //		{
-//			printf("%s\n", o->pipes->link->str);
-//			o->pipes->link = o->pipes->link->next;
+//			printf("arg = %s\n", o->pipes->arg[i]);
+//			i++;
 //		}
 //		o->pipes = o->pipes->next;
 //	}
-//	free_pipes(&tmp);
 	printf("input end = %s\n", input);
 //		exe(o);
 	free_o(o);

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	open_read_file(char *file, t_obj *o)
 {

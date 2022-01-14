@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	check_pipe_token(char *str, char *input, t_obj *o)
 {
@@ -9,21 +9,22 @@ int	check_pipe_token(char *str, char *input, t_obj *o)
 		free_two_str(input, str);
 		return (1);
 	}
+	put_str_to_link(str, o);
 	return (0);
 }
 
-int	check_size(char *str, char *input, t_obj *o)
-{
-	if (ft_strlen(str) != 0)
-	{
-		if (check_pipe_token(str, input, o))
-			return (1);
-		put_str_to_link(str, o);
-	}
-	else
-		free(str);
-	return (0);
-}
+//int	check_size(char *str, char *input, t_obj *o)
+//{
+//	if (ft_strlen(str) != 0)
+//	{
+//		if (check_pipe_token(str, input, o))
+//			return (1);
+//		put_str_to_link(str, o);
+//	}
+//	else
+//		free(str);
+//	return (0);
+//}
 
 char	*parse_pipe(char *input, int *index, t_obj *o)
 {
@@ -34,7 +35,7 @@ char	*parse_pipe(char *input, int *index, t_obj *o)
 	i = *index;
 	str = ft_strdup(input);
 	str[i++] = 0;
-	if (check_size(str, input, o))
+	if (check_pipe_token(str, input, o))
 		return (NULL);
 	put_link_to_pipe(o);
 	pass_space_one(input, &i);
