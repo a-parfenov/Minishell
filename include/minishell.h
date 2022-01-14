@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 23:13:38 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/14 11:22:26 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,7 @@ void	exe(t_obj *o);
 
 void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);
+void	command_echo(char **arg);
+
 
 #endif

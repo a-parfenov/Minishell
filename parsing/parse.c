@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:04 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/13 23:14:35 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/14 10:33:23 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ char	*combine(char *input, t_obj *o)
 			input = parse_pipe(input, &i, o);
 		else if (input[i] == ' ')
 			input = parse_spaces(input, &i, o);
-		else if (input[i] == 'e' && input[i+1] == 'n' && input[i+2] == 'v')
-			command_env(o);
-		else if (input[i] == 'p' && input[i+1] == 'w' && input[i+2] == 'd')
-			command_pwd(o);
+		// else if (input[i] == 'e' && input[i+1] == 'n' && input[i+2] == 'v')
+		// 	command_env(o);
+		
 		if (!input)
 			return (NULL);
 		i++;
@@ -72,7 +71,7 @@ void	parse(char *input, t_obj *o)
 		free(o);
 		return ;
 	}
-	printf("input start = %s\n", input);
+	// printf("input start = %s\n", input);
 	input = delete_spaces(input);
 	input = combine(input, o);
 	if (!input)
@@ -92,19 +91,8 @@ void	parse(char *input, t_obj *o)
 		free_o(o);
 		return ;
 	}
-	printf("%d\n", pipes_size(o->pipes));
-//	t_pipes *tmp = o->pipes;
-//	while (o->pipes)
-//	{
-//		while (o->pipes->link)
-//		{
-//			printf("%s\n", o->pipes->link->str);
-//			o->pipes->link = o->pipes->link->next;
-//		}
-//		o->pipes = o->pipes->next;
-//	}
-//	free_pipes(&tmp);
-	printf("input end = %s\n", input);
-//		exe(o);
+	// printf("%d\n", pipes_size(o->pipes));
+	// printf("input end = %s\n", input);
+		exe(o);
 	free_o(o);
 }
