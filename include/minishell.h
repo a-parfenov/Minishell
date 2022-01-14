@@ -39,7 +39,7 @@ typedef	struct s_link
 
 typedef struct s_pipes
 {
-	t_link			*link;
+	char			**arg;
 	struct s_pipes	*next;
 }					t_pipes;
 
@@ -86,7 +86,7 @@ t_link	*link_new_node(char *command);
 void	link_add_back(t_link **link, t_link *new_node);
 void	free_link(t_link **link);
 int		link_size(t_link *link);
-t_pipes	*pipes_new_node(t_link *link);
+t_pipes	*pipes_new_node(char **arg);
 void	pipes_add_back(t_pipes **pipes, t_pipes *new_node);
 void	free_pipes(t_pipes **pipes);
 int		pipes_size(t_pipes *pipes);
