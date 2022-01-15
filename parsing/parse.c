@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:04 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 12:01:56 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/15 14:58:04 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	parse(char *input, t_obj *o)
 //		o->pipes = o->pipes->next;
 //	}
 	printf("input end = %s\n", input);
-		exe(o);
+	exe(o);
 	free_o(o);
 }
