@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:42:30 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 22:16:57 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/15 13:11:22 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ void	command_echo(t_pipes	*pipes)
 		option_n = 1;
 		i++;
 	}
+	while (pipes->arg[i] && !ft_strncmp(pipes->arg[i], "-n", 3))
+		++i;
 	count_arg = args_count(pipes->arg);
 	while (i < count_arg)
-	{
-		putstr_while(pipes->arg, count_arg, i, option_n);
-		i++;
-	}
+		putstr_while(pipes->arg, count_arg, i++, option_n);
 }

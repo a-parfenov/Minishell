@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 22:22:23 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/15 14:45:31 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct s_pipes
 	struct s_pipes	*next;
 }					t_pipes;
 
+typedef struct s_env
+{
+	char			*env_str;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_obj
 {
 	char	**env;
@@ -52,6 +58,7 @@ typedef struct s_obj
 	int		fd_re_out;
 	int		is_heredoc;
 	int		is_redirect;
+	t_env	*env_st;
 	t_pipes	*pipes;
 	t_link	*link;
 }			t_obj;

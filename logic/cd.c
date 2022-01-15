@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:34:28 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/15 11:23:57 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/15 13:25:40 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	command_cd(t_obj *o)
 		}
 	}
 	printf("|| %s\n", home);
-	home = getenv("HOME");
-	printf("|| %s\n", home);
+	// home = getenv("HOME");
+	// printf("|| %s\n", home);
 	check_dir = chdir(home);
 	printf("|| %s\n", o->pipes->arg[1]);
 	printf("|| %d\n", check_dir);
