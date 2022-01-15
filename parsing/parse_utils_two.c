@@ -65,29 +65,14 @@ void	put_str_to_link(char *str, t_obj *o)
 		link_add_back(&o->link, link_new_node(str));
 }
 
-void	put_link_to_pipe(t_obj *o)
+char	*build_error_str(char *file)
 {
-	int		i;
-	int		size;
-	char	**arg;
+	char	*error;
+	char	*tmp;
 
-	size = link_size(o->link);
-	printf("size link = %d\n", size);
-	arg = malloc(sizeof(char *) * size + 1);
-	if (!arg)
-		return ;
-	i = 0;
-	while (o->link)
-	{
-		arg[i] = o->link->str;
-		o->link = o->link->next;
-		i++;
-	}
-	arg[i] = NULL;
-	if (!o->pipes)
-		o->pipes = pipes_new_node(arg);
-	else
-		pipes_add_back(&o->pipes, pipes_new_node(arg));
-	free_link(&o->link);
-	o->link = NULL;
+	error = ft_strjoin(ERROR_NAME, ": ");
+	tmp = error;
+	error = ft_strjoin(error, file);
+	free(tmp);
+	return (error);
 }

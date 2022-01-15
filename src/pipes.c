@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-t_pipes	*pipes_new_node(char **arg)
+t_pipes	*pipes_new_node(char **arg, t_obj *o)
 {
 	t_pipes	*new;
 
@@ -21,6 +21,11 @@ t_pipes	*pipes_new_node(char **arg)
 		return (NULL);
 	new->arg = arg;
 	new->next = NULL;
+	new->fd_in = o->fd_in;
+	new->fd_out = o->fd_out;
+	new->fd_re_out = o->fd_re_out;
+	new->is_heredoc = o->is_heredoc;
+	new->is_redirect = o->is_redirect;
 	return (new);
 }
 
@@ -43,6 +48,7 @@ void	free_pipes(t_pipes **pipes)
 
 	while (*pipes)
 	{
+		printf("%p\n", pipes);
 		free_arr((*pipes)->arg);
 		tmp = *pipes;
 		*pipes = (*pipes)->next;

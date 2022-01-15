@@ -71,12 +71,21 @@ t_obj	*init_o(char **env)
 		write(1, "1111\n", 5);
 	}
 	o->heredoc = NULL;
-	o->fd_in = 0;
-	o->fd_out = 1;
-	o->fd_re_out = 1;
+	o->fd_in = -1;
+	o->fd_out = -1;
+	o->fd_re_out = -1;
 	o->is_heredoc = 0;
 	o->is_redirect = 0;
 	o->pipes = NULL;
 	o->link = NULL;
 	return (o);
+}
+
+void	re_init_o_fd(t_obj *o)
+{
+	o->fd_in = -1;
+	o->fd_out = -1;
+	o->fd_re_out = -1;
+	o->is_heredoc = 0;
+	o->is_redirect = 0;
 }

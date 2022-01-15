@@ -19,6 +19,7 @@ SRCS	=	src/main.c\
 			parsing/parse_spases.c\
 			parsing/parse_utils.c\
 			parsing/parse_utils_two.c\
+			parsing/parse_utils_three.c\
 			parsing/get_next_line.c\
 			logic/env.c\
 			logic/pwd.c\
