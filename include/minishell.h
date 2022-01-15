@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 17:30:12 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/14 22:22:23 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int		pipes_size(t_pipes *pipes);
 void	free_arr(char **arr);
 int		ft_strcmp(char *s1, char *s2);
 void	exe(t_obj *o);
+
+void	print_error(char *error, char *str);
 
 void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);

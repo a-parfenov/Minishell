@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:42:30 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 12:58:02 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/14 22:16:57 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	args_count(char **arg)
 {
@@ -26,14 +26,11 @@ int	args_count(char **arg)
 
 void	putstr_while(char **arg, int count_arg, int i, int option_n)
 {
-	if (option_n == 1)
-		printf("%s ", arg[i]);
-	else
-	{
-		printf("%s ", arg[i]);
-		if (i + 1 == count_arg)
-			printf("\n");
-	}
+	ft_putstr_fd(arg[i], 1);
+	if (arg[i + 1])
+		ft_putchar_fd(' ', 1);
+	if (i + 1 == count_arg && option_n == 0)
+		ft_putchar_fd('\n', 1);
 }
 
 void	command_echo(t_pipes	*pipes)
@@ -43,9 +40,6 @@ void	command_echo(t_pipes	*pipes)
 	int	count_arg;
 
 	i = 1;
-	// int j = -1;
-	// while (pipes->arg[++j])
-	// 	printf("|%s|\n", pipes->arg[j]);
 	option_n = 0;
 	if (!pipes->arg[1])
 	{
@@ -64,5 +58,4 @@ void	command_echo(t_pipes	*pipes)
 		putstr_while(pipes->arg, count_arg, i, option_n);
 		i++;
 	}
-	// write(1, "---\n", 4);
 }
