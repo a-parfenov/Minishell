@@ -6,11 +6,11 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 10:42:30 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 11:30:38 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/15 13:11:22 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	args_count(char **arg)
 {
@@ -26,17 +26,14 @@ int	args_count(char **arg)
 
 void	putstr_while(char **arg, int count_arg, int i, int option_n)
 {
-	if (option_n == 1)
-		printf("%s ", arg[i]);
-	else
-	{
-		printf("%s ", arg[i]);
-		if (i + 1 == count_arg)
-			write(1, "\n", 1);
-	}
+	ft_putstr_fd(arg[i], 1);
+	if (arg[i + 1])
+		ft_putchar_fd(' ', 1);
+	if (i + 1 == count_arg && option_n == 0)
+		ft_putchar_fd('\n', 1);
 }
 
-void	command_echo(char **arg)
+void	command_echo(t_pipes	*pipes)
 {
 	int	i;
 	int	option_n;
@@ -44,20 +41,20 @@ void	command_echo(char **arg)
 
 	i = 1;
 	option_n = 0;
-	if (!arg[1])
+	if (!pipes->arg[1])
 	{
 		write(1, "\n", 1);
 		return ;
 	}
-	if (arg[1][0] == '-' && arg[1][1] == 'n' && arg[1][2] == '\0')
+	if (pipes->arg[1][0] == '-' && pipes->arg[1][1] == 'n'
+		&& pipes->arg[1][2] == '\0')
 	{
 		option_n = 1;
 		i++;
 	}
-	count_arg = args_count(arg);
+	while (pipes->arg[i] && !ft_strncmp(pipes->arg[i], "-n", 3))
+		++i;
+	count_arg = args_count(pipes->arg);
 	while (i < count_arg)
-	{
-		putstr_while(arg, count_arg, i, option_n);
-		i++;
-	}
+		putstr_while(pipes->arg, count_arg, i++, option_n);
 }

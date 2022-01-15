@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/14 11:22:26 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/15 14:45:31 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ typedef struct s_pipes
 	int				is_redirect;
 }					t_pipes;
 
+typedef struct s_env
+{
+	char			*env_str;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_obj
 {
 	char	**env;
@@ -60,6 +66,7 @@ typedef struct s_obj
 	int		fd_re_out;
 	int		is_heredoc;
 	int		is_redirect;
+	t_env	*env_st;
 	t_pipes	*pipes;
 	t_link	*link;
 }			t_obj;
@@ -105,9 +112,11 @@ void	free_arr(char **arr);
 int		ft_strcmp(char *s1, char *s2);
 void	exe(t_obj *o);
 
+void	print_error(char *error, char *str);
+
 void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);
-void	command_echo(char **arg);
-
+void	command_echo(t_pipes	*pipes);
+void	command_cd(t_obj *o);
 
 #endif

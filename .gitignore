@@ -1,0 +1,8 @@
+a.out
+# .gitignore
+*.o
+*.a
+.vscode
+.DS_Store
+*.txt
+minishell
