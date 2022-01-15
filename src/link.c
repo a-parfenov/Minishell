@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 t_link	*link_new_node(char *str)
 {
@@ -43,7 +43,7 @@ void	free_link(t_link **link)
 
 	while (*link)
 	{
-		free((*link)->str);
+		printf("free link %p\n", link);
 		tmp = *link;
 		*link = (*link)->next;
 		free(tmp);

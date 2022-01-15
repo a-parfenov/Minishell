@@ -16,7 +16,6 @@ int	open_rewrite_file(char *file, t_obj *o)
 {
 	int		fd;
 	char	*error;
-	char	*tmp;
 
 	file = build_file(file);
 	if (!file)
@@ -25,16 +24,17 @@ int	open_rewrite_file(char *file, t_obj *o)
 			| S_IREAD | S_IRGRP | S_IROTH);
 	if (fd == -1)
 	{
-		error = ft_strjoin(ERROR_NAME, ": ");
-		tmp = error;
-		error = ft_strjoin(error, file);
+		error = build_error_str(file);
 		perror(error);
-		free_three_str(tmp, error, file);
+		free_two_str(error, file);
+		g_exit = 1;
 		return (1);
 	}
 	free(file);
+	if (o->fd_re_out != -1)
+		close(o->fd_re_out);
 	o->fd_re_out = fd;
-	o->is_redirect = 1;
+	o->is_redirect++;
 	return (0);
 }
 

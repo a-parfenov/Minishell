@@ -43,7 +43,8 @@ char	*combine(char *input, t_obj *o)
 			input = parse_quote(input, &i);
 		else if (input[i] == '"')
 			input = parse_dquote(input, &i);
-		else if (input[i] == '$' && ft_isalpha(input[i + 1]))
+		else if (input[i] == '$'
+			&& (ft_isalnum(input[i + 1]) || input[i + 1] == '?'))
 			input = parse_dollar(input, &i);
 		else if (input[i] == '<' || input[i] == '>')
 			input = redirects(input, &i, o);
@@ -73,14 +74,11 @@ void	parse(char *input, t_obj *o)
 	input = combine(input, o);
 	if (!input)
 	{
-		printf("%d\n", pipes_size(o->pipes));
-		if (!o->pipes)
-			free_link(&o->link);
+		printf("pipes size %d\n", pipes_size(o->pipes));
 		free_o(o);
 		return ;
 	}
-
-	printf("%d\n", pipes_size(o->pipes));
+	printf("pipes size %d\n", pipes_size(o->pipes));
 //	while (o->pipes)
 //	{
 //		int i = 0;
@@ -89,6 +87,11 @@ void	parse(char *input, t_obj *o)
 //			printf("arg = %s\n", o->pipes->arg[i]);
 //			i++;
 //		}
+//		printf("flag heredoc = %d\n", o->pipes->is_heredoc);
+//		printf("flag redirect = %d\n", o->pipes->is_redirect);
+//		printf("flag in = %d\n", o->pipes->fd_in);
+//		printf("flag out = %d\n", o->pipes->fd_out);
+//		printf("flag re_out = %d\n", o->pipes->fd_re_out);
 //		o->pipes = o->pipes->next;
 //	}
 	printf("input end = %s\n", input);

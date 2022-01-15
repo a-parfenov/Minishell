@@ -24,12 +24,15 @@
 # define ERROR_NAME "minishell"
 # define ONE_TOKEN "Error! Unclosed quote"
 # define TWO_TOKEN "Error! Unclosed dquote"
+# define THREE_TOKEN "Error! Unclosed pipe"
 # define SYNTAX_TOKEN "syntax error"
 # define IN_TOKEN "syntax error near unexpected token `<'"
 # define OUT_TOKEN "syntax error near unexpected token `>'"
 # define PIPE_TOKEN "syntax error near unexpected token `|'"
 # define NEW_TOKEN "syntax error near unexpected token `newline'"
 # define BUFFER_SIZE 1024
+
+int	g_exit;
 
 typedef	struct s_link
 {
@@ -41,6 +44,11 @@ typedef struct s_pipes
 {
 	char			**arg;
 	struct s_pipes	*next;
+	int				fd_in;
+	int				fd_out;
+	int				fd_re_out;
+	int				is_heredoc;
+	int				is_redirect;
 }					t_pipes;
 
 typedef struct s_obj
@@ -57,6 +65,7 @@ typedef struct s_obj
 }			t_obj;
 
 t_obj	*init_o(char **env);
+void	re_init_o_fd(t_obj *o);
 
 void	parse(char *input, t_obj *o);
 char	*delete_spaces(char *input);
@@ -78,6 +87,7 @@ int		check_token_two(char c);
 void	pass_space_one(char *input, int *i);
 void	pass_space_two(char *input, int *i);
 char	*build_file(char *file);
+char	*build_error_str(char *file);
 void	put_str_to_link(char *str, t_obj *o);
 void	put_link_to_pipe(t_obj *o);
 char	*get_next_line(int fd);
@@ -86,7 +96,7 @@ t_link	*link_new_node(char *command);
 void	link_add_back(t_link **link, t_link *new_node);
 void	free_link(t_link **link);
 int		link_size(t_link *link);
-t_pipes	*pipes_new_node(char **arg);
+t_pipes	*pipes_new_node(char **arg, t_obj *o);
 void	pipes_add_back(t_pipes **pipes, t_pipes *new_node);
 void	free_pipes(t_pipes **pipes);
 int		pipes_size(t_pipes *pipes);

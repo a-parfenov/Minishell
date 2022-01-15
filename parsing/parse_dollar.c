@@ -27,6 +27,25 @@ static char	*init_dollar(char *start, int i)
 	return (val);
 }
 
+char	*check_find_dollar(char *start, int *i, int index)
+{
+	char	*dollar;
+
+	if (start[*i] == '?')
+	{
+		dollar = ft_itoa(g_exit);
+		(*i)++;
+	}
+	else
+	{
+		while (ft_isalnum(start[*i]) || start[*i] == '_')
+			(*i)++;
+		start[*i] = 0;
+		dollar = init_dollar(start, index);
+	}
+	return (dollar);
+}
+
 char	*parse_dollar(char *mid, int *index)
 {
 	char	*res;
@@ -38,10 +57,7 @@ char	*parse_dollar(char *mid, int *index)
 	i = *index;
 	start = ft_strdup(mid);
 	start[i++] = 0;
-	while (ft_isalpha(start[i]) || start[i] == '_')
-		i++;
-	start[i] = 0;
-	dollar = init_dollar(start, *index);
+	dollar = check_find_dollar(start, &i, *index);
 	res = ft_strjoin(start, dollar);
 	free_two_str(start, dollar);
 	*index = ft_strlen(res) - 1;
@@ -59,8 +75,7 @@ char	*find_dollar(char *mid)
 	i = 0;
 	while (mid[i])
 	{
-		if (mid[i] == '$' && mid[i + 1] != '$'
-			&& mid[i + 1] != ' ' && mid[i + 1] != 0)
+		if (mid[i] == '$' && (ft_isalnum(mid[i + 1]) || mid[i + 1] == '?'))
 			mid = parse_dollar(mid, &i);
 		i++;
 	}

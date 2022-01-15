@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int main(int argc, char **argv, char **env)
 {
@@ -19,6 +19,7 @@ int main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
+	g_exit = 0;
 	while (1)
 	{
 		input = readline(SHELL_NAME);

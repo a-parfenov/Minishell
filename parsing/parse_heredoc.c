@@ -22,9 +22,11 @@ int	read_heredoc(char *limit, t_obj *o)
 	limit = ft_strjoin(limit, "\n");
 	free(tmp);
 	res = ft_strdup("");
+	write(1, "> ", 2);
 	str = get_next_line(0);
 	while (ft_strcmp(str, limit) != 0)
 	{
+		write(1, "> ", 2);
 		tmp = res;
 		res = ft_strjoin(res, str);
 		free_two_str(tmp, str);
@@ -36,12 +38,12 @@ int	read_heredoc(char *limit, t_obj *o)
 		return (1);
 	o->is_heredoc = 1;
 	free_three_str(limit, str, res);
-	int i = 0;
-	while (o->heredoc[i])
-	{
-		printf("%s", o->heredoc[i]);
-		i++;
-	}
+//	int i = 0;
+//	while (o->heredoc[i])
+//	{
+//		printf("%s", o->heredoc[i]);
+//		i++;
+//	}
 	return (0);
 }
 
