@@ -26,7 +26,8 @@ SRCS	=	src/main.c\
 			logic/echo.c\
 			logic/cd.c\
 			logic/exit.c\
-			logic/export.c
+			logic/export.c\
+			logic/sort_env.c
 
 OBJS	=	$(SRCS:.c=.o)
 
