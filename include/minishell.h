@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/17 22:18:57 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:38:53 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,6 @@ void	command_cd(t_obj *o);
 char	*get_address(void);
 int		command_exit(char **code);
 void	command_export(t_obj *o);
+void	sort_env(t_obj *o);
 
 #endif

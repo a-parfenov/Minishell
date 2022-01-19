@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 23:03:56 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/17 17:00:55 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:44:35 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	command_pwd(t_obj *o)
 	// 	}
 	// }
 	// ft_putendl_fd(o->pwd, 1);
-
 	while (o->env_st != NULL)
 	{
 		if (ft_strncmp(o->env_st->env_str, "PWD=", 4) == 0)
@@ -37,6 +36,7 @@ void	command_pwd(t_obj *o)
 		}
 		o->env_st = o->env_st->next;
 	}
+	// mercury_repl_env(o, "_=", "pwd", 3);
 }
 
 char	*get_address(void)

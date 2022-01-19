@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:18 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/17 10:13:01 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:38:27 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_env	*lst_new_env(char *arg)
 		return (NULL);
 	lst->env_str = arg;
 	lst->next = NULL;
+	lst->export_next = NULL;
 	return (lst);
 }
 
@@ -84,7 +85,9 @@ t_obj	*init_o(char **env)
 	o->is_was_dollar = 0;
 	o->pipes = NULL;
 	o->link = NULL;
+	o->env_export = NULL;
 	env_struct(o);
+	sort_env(o);
 	return (o);
 }
 
