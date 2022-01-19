@@ -45,3 +45,20 @@ void	print_error(char *error, char *str)
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(error, 2);
 }
+
+void	close_fds(int fd1, int fd2, int fd3)
+{
+	close(fd1);
+	close(fd2);
+	close(fd3);
+}
+
+void	init_fds(int fd_in, int fd_out, int fd_re_out)
+{
+	if (fd_in != -1)
+		dup2(fd_in, 0);
+	if (fd_re_out != -1)
+		dup2(fd_re_out, 1);
+	if (fd_out != -1)
+		dup2(fd_out, 1);
+}

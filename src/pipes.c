@@ -20,12 +20,17 @@ t_pipes	*pipes_new_node(char **arg, t_obj *o)
 	if (!new)
 		return (NULL);
 	new->arg = arg;
+	if (o->heredoc)
+		new->heredoc = ft_strdup(o->heredoc);
+	else
+		new->heredoc = NULL;
 	new->next = NULL;
 	new->fd_in = o->fd_in;
 	new->fd_out = o->fd_out;
 	new->fd_re_out = o->fd_re_out;
 	new->is_heredoc = o->is_heredoc;
 	new->is_redirect = o->is_redirect;
+	new->is_was_dollar = o->is_was_dollar;
 	return (new);
 }
 
@@ -48,8 +53,8 @@ void	free_pipes(t_pipes **pipes)
 
 	while (*pipes)
 	{
-		printf("%p\n", pipes);
 		free_arr((*pipes)->arg);
+		free((*pipes)->heredoc);
 		tmp = *pipes;
 		*pipes = (*pipes)->next;
 		free(tmp);

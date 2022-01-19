@@ -3,7 +3,10 @@ NAME	=	minishell
 SRCS	=	src/main.c\
 			src/init.c\
 			src/exe.c\
+			src/fake_exe.c\
+			src/exe_command.c\
 			src/utils_one.c\
+			src/utils_two.c\
 			src/link.c\
 			src/pipes.c\
 			parsing/parse.c\
@@ -17,7 +20,7 @@ SRCS	=	src/main.c\
 			parsing/parse_rewrite_redirect.c\
 			parsing/parse_pipe.c\
 			parsing/parse_spases.c\
-			parsing/parse_utils.c\
+			parsing/parse_utils_one.c\
 			parsing/parse_utils_two.c\
 			parsing/parse_utils_three.c\
 			parsing/get_next_line.c\

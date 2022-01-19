@@ -5,7 +5,7 @@ int	open_read_file(char *file, t_obj *o)
 	int		fd;
 	char	*error;
 
-	file = build_file(file);
+	file = build_file(file, o);
 	if (!file)
 		return (1);
 	fd = open(file, O_RDONLY);
@@ -18,8 +18,7 @@ int	open_read_file(char *file, t_obj *o)
 		return (1);
 	}
 	free(file);
-	if (o->fd_in != -1)
-		close(o->fd_in);
+	close(o->fd_in);
 	o->fd_in = fd;
 	o->is_redirect++;
 	return (0);

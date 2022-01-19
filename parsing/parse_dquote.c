@@ -32,7 +32,7 @@ static char	*helper(char *start, char *mid)
 	return (res);
 }
 
-char	*parse_dquote(char *input, int *index)
+char	*parse_dquote(char *input, int *index, t_obj *o)
 {
 	char	*start;
 	char	*mid;
@@ -50,7 +50,7 @@ char	*parse_dquote(char *input, int *index)
 	start[i++] = 0;
 	mid = ft_strdup(start + *index + 1);
 	if (ft_strchr(mid, '$'))
-		mid = find_dollar(mid);
+		mid = find_dollar(mid, o);
 	res = helper(start, mid);
 	*index = ft_strlen(res) - 1;
 	start = res;

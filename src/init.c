@@ -62,13 +62,6 @@ t_obj	*init_o(char **env)
 				perror("malloc"); // aaaaaa
 			add_back_lst(o, lst_new_env(tmp));
 		}
-		t_env *nn = o->env_st;
-		while (nn != NULL)
-		{
-			printf("|| %s\n", nn->env_str);
-			nn = nn->next;
-		}
-		write(1, "1111\n", 5);
 	}
 	o->heredoc = NULL;
 	o->fd_in = -1;
@@ -76,6 +69,7 @@ t_obj	*init_o(char **env)
 	o->fd_re_out = -1;
 	o->is_heredoc = 0;
 	o->is_redirect = 0;
+	o->is_was_dollar = 0;
 	o->pipes = NULL;
 	o->link = NULL;
 	return (o);
@@ -88,4 +82,5 @@ void	re_init_o_fd(t_obj *o)
 	o->fd_re_out = -1;
 	o->is_heredoc = 0;
 	o->is_redirect = 0;
+	o->is_was_dollar = 0;
 }

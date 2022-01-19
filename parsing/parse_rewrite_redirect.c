@@ -17,7 +17,7 @@ int	open_rewrite_file(char *file, t_obj *o)
 	int		fd;
 	char	*error;
 
-	file = build_file(file);
+	file = build_file(file, o);
 	if (!file)
 		return (1);
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, S_IWRITE
@@ -31,8 +31,7 @@ int	open_rewrite_file(char *file, t_obj *o)
 		return (1);
 	}
 	free(file);
-	if (o->fd_re_out != -1)
-		close(o->fd_re_out);
+	close(o->fd_re_out);
 	o->fd_re_out = fd;
 	o->is_redirect++;
 	return (0);

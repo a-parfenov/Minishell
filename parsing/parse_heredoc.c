@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int	read_heredoc(char *limit, t_obj *o)
+void	read_heredoc(char *limit, t_obj *o)
 {
 	char	*str;
 	char	*tmp;
@@ -32,19 +32,11 @@ int	read_heredoc(char *limit, t_obj *o)
 		free_two_str(tmp, str);
 		str = get_next_line(0);
 	}
-	free_arr(o->heredoc);
-	o->heredoc = ft_split(res, '\0');
-	if (!o->heredoc)
-		return (1);
+	free(o->heredoc);
+	o->heredoc = res;
 	o->is_heredoc = 1;
-	free_three_str(limit, str, res);
-//	int i = 0;
-//	while (o->heredoc[i])
-//	{
-//		printf("%s", o->heredoc[i]);
-//		i++;
-//	}
-	return (0);
+	o->is_redirect++;
+	free_two_str(limit, str);
 }
 
 char	*parse_heredoc(char *input, int *index, t_obj *o)
@@ -67,8 +59,7 @@ char	*parse_heredoc(char *input, int *index, t_obj *o)
 	end = ft_substr(input, i, ft_strlen(input));
 	start[i++] = 0;
 	limit = ft_strdup(start + j);
-	if (read_heredoc(limit, o))
-		return (free_three_str(start, input, end));
+	read_heredoc(limit, o);
 	limit = input;
 	input = ft_strjoin(start, end);
 	free_three_str(limit, start, end);

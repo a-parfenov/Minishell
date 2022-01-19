@@ -40,7 +40,7 @@ void	pass_space_two(char *input, int *i)
 		(*i)++;
 }
 
-char	*build_file(char *file)
+char	*build_file(char *file, t_obj *o)
 {
 	int	i;
 
@@ -50,9 +50,9 @@ char	*build_file(char *file)
 		if (file[i] == '\'')
 			file = parse_quote(file, &i);
 		else if (file[i] == '"')
-			file = parse_dquote(file, &i);
+			file = parse_dquote(file, &i, o);
 		else if (file[i] == '$')
-			file = parse_dollar(file, &i);
+			file = parse_dollar(file, &i, o);
 		if (!file)
 			return (NULL);
 		i++;

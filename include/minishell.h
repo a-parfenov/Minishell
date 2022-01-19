@@ -18,6 +18,8 @@
 # include <errno.h>
 # include <string.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include "../libft/libft.h"
 # define SHELL_NAME "minishell% "
@@ -26,6 +28,7 @@
 # define TWO_TOKEN "Error! Unclosed dquote"
 # define THREE_TOKEN "Error! Unclosed pipe"
 # define SYNTAX_TOKEN "syntax error"
+# define COMMAND_TOKEN "command not found"
 # define IN_TOKEN "syntax error near unexpected token `<'"
 # define OUT_TOKEN "syntax error near unexpected token `>'"
 # define PIPE_TOKEN "syntax error near unexpected token `|'"
@@ -43,12 +46,14 @@ typedef	struct s_link
 typedef struct s_pipes
 {
 	char			**arg;
+	char			*heredoc;
 	struct s_pipes	*next;
 	int				fd_in;
 	int				fd_out;
 	int				fd_re_out;
 	int				is_heredoc;
 	int				is_redirect;
+	int				is_was_dollar;
 }					t_pipes;
 
 typedef struct s_env
@@ -60,12 +65,13 @@ typedef struct s_env
 typedef struct s_obj
 {
 	char	**env;
-	char	**heredoc;
+	char	*heredoc;
 	int		fd_in;
 	int		fd_out;
 	int		fd_re_out;
 	int		is_heredoc;
 	int		is_redirect;
+	int		is_was_dollar;
 	t_env	*env_st;
 	t_pipes	*pipes;
 	t_link	*link;
@@ -77,9 +83,9 @@ void	re_init_o_fd(t_obj *o);
 void	parse(char *input, t_obj *o);
 char	*delete_spaces(char *input);
 char	*parse_quote(char *input, int *index);
-char	*parse_dquote(char *input, int *index);
-char	*parse_dollar(char *input, int *index);
-char	*find_dollar(char *mid);
+char	*parse_dquote(char *input, int *index, t_obj *o);
+char	*parse_dollar(char *input, int *index, t_obj *o);
+char	*find_dollar(char *mid, t_obj *o);
 char	*parse_in_redirect(char *input, int *index, t_obj *o);
 char	*parse_heredoc(char *input, int *index, t_obj *o);
 char	*parse_out_redirect(char *input, int *index, t_obj *o);
@@ -93,7 +99,7 @@ int		check_token(char c);
 int		check_token_two(char c);
 void	pass_space_one(char *input, int *i);
 void	pass_space_two(char *input, int *i);
-char	*build_file(char *file);
+char	*build_file(char *file, t_obj *o);
 char	*build_error_str(char *file);
 void	put_str_to_link(char *str, t_obj *o);
 void	put_link_to_pipe(t_obj *o);
@@ -110,9 +116,17 @@ int		pipes_size(t_pipes *pipes);
 
 void	free_arr(char **arr);
 int		ft_strcmp(char *s1, char *s2);
-void	exe(t_obj *o);
-
 void	print_error(char *error, char *str);
+void	close_fds(int fd1, int fd2, int fd3);
+void	init_fds(int fd_in, int fd_out, int fd_re_out);
+void	micro_print_err(char *command);
+char	*find_command(char **arg);
+char	*find_command_in_env(char *command);
+void	exe_heredoc(t_pipes *pipes);
+
+void	exe(t_obj *o);
+void	fake_exe(t_obj *o);
+void	exe_single_command(t_obj *o);
 
 void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);

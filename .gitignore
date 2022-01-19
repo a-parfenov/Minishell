@@ -1,8 +1,10 @@
 a.out
-# .gitignore
+.gitignore
 *.o
 *.a
 .vscode
 .DS_Store
 *.txt
 minishell
+.idea
+1
