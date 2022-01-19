@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/15 14:45:31 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/17 22:18:57 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,15 @@ typedef struct s_pipes
 	int				is_was_dollar;
 }					t_pipes;
 
+# define MIN 0
+# define MAX 1
+
 typedef struct s_env
 {
 	char			*env_str;
 	struct s_env	*next;
+	int				flag;
+	struct s_env	*export_next;
 }					t_env;
 
 typedef struct s_obj
@@ -73,6 +78,7 @@ typedef struct s_obj
 	int		is_redirect;
 	int		is_was_dollar;
 	t_env	*env_st;
+	t_env	*env_export;
 	t_pipes	*pipes;
 	t_link	*link;
 }			t_obj;
@@ -116,6 +122,10 @@ int		pipes_size(t_pipes *pipes);
 
 void	free_arr(char **arr);
 int		ft_strcmp(char *s1, char *s2);
+
+void	exe(t_obj *o);
+void	free_env_struct(t_obj *o);
+
 void	print_error(char *error, char *str);
 void	close_fds(int fd1, int fd2, int fd3);
 void	init_fds(int fd_in, int fd_out, int fd_re_out);
@@ -132,5 +142,8 @@ void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);
 void	command_echo(t_pipes	*pipes);
 void	command_cd(t_obj *o);
+char	*get_address(void);
+int		command_exit(char **code);
+void	command_export(t_obj *o);
 
 #endif

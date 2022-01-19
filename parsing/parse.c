@@ -6,17 +6,31 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:04 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/15 14:58:04 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/17 10:36:00 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	free_env_struct(t_obj *o)
+{
+	t_env *begin;
+
+	while (o->env_st)
+	{
+		free(o->env_st->env_str);
+		begin = o->env_st;
+		o->env_st = o->env_st->next;
+		free(begin);
+	}
+}
+
 void	free_o(t_obj *o)
 {
 	free_pipes(&o->pipes);
 	free(o->heredoc);
-	free(o);
+	// free_env_struct(o);
+	// free(o);
 }
 
 char	*redirects(char *input, int *i, t_obj *o)
@@ -68,7 +82,7 @@ void	parse(char *input, t_obj *o)
 	if (input[0] == 0)
 	{
 		free(input);
-		free(o);
+		// free(o);
 		return ;
 	}
 	input = delete_spaces(input);
