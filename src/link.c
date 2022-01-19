@@ -43,7 +43,6 @@ void	free_link(t_link **link)
 
 	while (*link)
 	{
-		printf("free link %p\n", link);
 		tmp = *link;
 		*link = (*link)->next;
 		free(tmp);

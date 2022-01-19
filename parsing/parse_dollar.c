@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static char	*init_dollar(char *start, int i)
+static char	*init_dollar(char *start, int i, t_obj *o)
 {
 	char	*dollar;
 	char	*val;
@@ -23,11 +23,14 @@ static char	*init_dollar(char *start, int i)
 	if (val)
 		val = ft_strdup(val);
 	else
+	{
+		o->is_was_dollar++;
 		val = ft_strdup("");
+	}
 	return (val);
 }
 
-char	*check_find_dollar(char *start, int *i, int index)
+char	*check_find_dollar(char *start, int *i, int index, t_obj *o)
 {
 	char	*dollar;
 
@@ -41,12 +44,12 @@ char	*check_find_dollar(char *start, int *i, int index)
 		while (ft_isalnum(start[*i]) || start[*i] == '_')
 			(*i)++;
 		start[*i] = 0;
-		dollar = init_dollar(start, index);
+		dollar = init_dollar(start, index, o);
 	}
 	return (dollar);
 }
 
-char	*parse_dollar(char *mid, int *index)
+char	*parse_dollar(char *mid, int *index, t_obj *o)
 {
 	char	*res;
 	char	*start;
@@ -57,7 +60,7 @@ char	*parse_dollar(char *mid, int *index)
 	i = *index;
 	start = ft_strdup(mid);
 	start[i++] = 0;
-	dollar = check_find_dollar(start, &i, *index);
+	dollar = check_find_dollar(start, &i, *index, o);
 	res = ft_strjoin(start, dollar);
 	free_two_str(start, dollar);
 	*index = ft_strlen(res) - 1;
@@ -68,7 +71,7 @@ char	*parse_dollar(char *mid, int *index)
 	return (mid);
 }
 
-char	*find_dollar(char *mid)
+char	*find_dollar(char *mid, t_obj *o)
 {
 	int	i;
 
@@ -76,7 +79,7 @@ char	*find_dollar(char *mid)
 	while (mid[i])
 	{
 		if (mid[i] == '$' && (ft_isalnum(mid[i + 1]) || mid[i + 1] == '?'))
-			mid = parse_dollar(mid, &i);
+			mid = parse_dollar(mid, &i, o);
 		i++;
 	}
 	return (mid);

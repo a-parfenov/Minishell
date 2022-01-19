@@ -81,6 +81,7 @@ t_obj	*init_o(char **env)
 	o->fd_re_out = -1;
 	o->is_heredoc = 0;
 	o->is_redirect = 0;
+	o->is_was_dollar = 0;
 	o->pipes = NULL;
 	o->link = NULL;
 	env_struct(o);
@@ -94,4 +95,5 @@ void	re_init_o_fd(t_obj *o)
 	o->fd_re_out = -1;
 	o->is_heredoc = 0;
 	o->is_redirect = 0;
+	o->is_was_dollar = 0;
 }

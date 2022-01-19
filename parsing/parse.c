@@ -28,7 +28,7 @@ void	free_env_struct(t_obj *o)
 void	free_o(t_obj *o)
 {
 	free_pipes(&o->pipes);
-	free_arr(o->heredoc);
+	free(o->heredoc);
 	// free_env_struct(o);
 	// free(o);
 }
@@ -56,10 +56,10 @@ char	*combine(char *input, t_obj *o)
 		if (input[i] == '\'')
 			input = parse_quote(input, &i);
 		else if (input[i] == '"')
-			input = parse_dquote(input, &i);
+			input = parse_dquote(input, &i, o);
 		else if (input[i] == '$'
 			&& (ft_isalnum(input[i + 1]) || input[i + 1] == '?'))
-			input = parse_dollar(input, &i);
+			input = parse_dollar(input, &i, o);
 		else if (input[i] == '<' || input[i] == '>')
 			input = redirects(input, &i, o);
 		else if (input[i] == '|')
@@ -77,39 +77,23 @@ char	*combine(char *input, t_obj *o)
 
 void	parse(char *input, t_obj *o)
 {
+	t_pipes	*tmp;
+
 	if (input[0] == 0)
 	{
 		free(input);
 		// free(o);
 		return ;
 	}
-	// printf("input start = %s\n", input);
 	input = delete_spaces(input);
 	input = combine(input, o);
 	if (!input)
 	{
-		printf("pipes size %d\n", pipes_size(o->pipes));
 		free_o(o);
 		return ;
 	}
-	printf("pipes size %d\n", pipes_size(o->pipes));
-//	while (o->pipes)
-//	{
-//		int i = 0;
-//		while (o->pipes->arg[i])
-//		{
-//			printf("arg = %s\n", o->pipes->arg[i]);
-//			i++;
-//		}
-//		printf("flag heredoc = %d\n", o->pipes->is_heredoc);
-//		printf("flag redirect = %d\n", o->pipes->is_redirect);
-//		printf("flag in = %d\n", o->pipes->fd_in);
-//		printf("flag out = %d\n", o->pipes->fd_out);
-//		printf("flag re_out = %d\n", o->pipes->fd_re_out);
-//		o->pipes = o->pipes->next;
-//	}
-	printf("input end = %s\n", input);
+	tmp = o->pipes;
 	exe(o);
-	
+	o->pipes = tmp;
 	free_o(o);
 }

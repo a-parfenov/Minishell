@@ -26,7 +26,6 @@ void	put_link_to_pipe(t_obj *o)
 	char	**arg;
 
 	size = link_size(o->link);
-	printf("size link = %d\n", size);
 	tmp = o->link;
 	arg = put_link_to_arg(size, o);
 	if (!o->pipes)
