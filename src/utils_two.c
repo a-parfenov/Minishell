@@ -5,9 +5,12 @@ void	micro_print_err(char *command)
 	char	*err;
 
 	err = build_error_str(command);
-	printf("%s: %s\n", err, COMMAND_TOKEN);
-	free(err);
-	g_exit = 1;
+	write(2, err, ft_strlen(err));
+	write(2, ": ", 2);
+	write(2, COMMAND_TOKEN, ft_strlen(COMMAND_TOKEN));
+	write(2, "\n", 1);
+	free_two_str(command, err);
+	g_exit = 127;
 }
 
 char	*find_command(char **arg)
@@ -67,8 +70,12 @@ void	exe_heredoc(t_pipes *pipes)
 {
 	int		pipe_fd[2];
 
-	pipe(pipe_fd);
+	if (pipe(pipe_fd) == -1)
+	{
+		perror(ERROR_NAME);
+		exit(EXIT_FAILURE);
+	}
 	write(pipe_fd[1], pipes->heredoc, ft_strlen(pipes->heredoc));
 	close(pipe_fd[1]);
-	pipes->fd_in = pipe_fd[0];
+	dup2(pipe_fd[0], 0);
 }

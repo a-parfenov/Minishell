@@ -7,6 +7,7 @@ SRCS	=	src/main.c\
 			src/exe_command.c\
 			src/utils_one.c\
 			src/utils_two.c\
+			src/utils_three.c\
 			src/link.c\
 			src/pipes.c\
 			parsing/parse.c\

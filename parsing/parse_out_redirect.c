@@ -34,6 +34,7 @@ int	open_write_file(char *file, t_obj *o)
 	close(o->fd_out);
 	o->fd_out = fd;
 	o->is_redirect++;
+	put_str_to_link(ft_strdup(""), o);
 	return (0);
 }
 
@@ -45,15 +46,13 @@ char	*parse_out_redirect(char *input, int *index, t_obj *o)
 	int		i;
 	int		j;
 
-	i = (*index)--;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	pass_space_one(input, &i);
+	start = init_start(&i, index, input);
 	if (check_len(input + i) || check_token(input[i]))
 		return (free_two_str(start, input));
 	j = i;
 	pass_space_two(input, &i);
 	end = ft_substr(input, i, ft_strlen(input));
+	end = delete_spaces(end);
 	if (check_token_two(input[i]))
 		return (free_three_str(start, input, end));
 	start[i++] = 0;

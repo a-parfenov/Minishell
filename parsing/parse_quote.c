@@ -32,6 +32,21 @@ static char	*helper(char *start, char *mid)
 	return (res);
 }
 
+char	*init_q_start(int *i, int *index, char *input)
+{
+	char	*start;
+
+	*i = *index;
+	start = ft_strdup(input);
+	start[(*i)++] = 0;
+	while (start[*i] && start[*i] != '\'')
+		(*i)++;
+	if (check_unclosed(start, *i, input))
+		return (NULL);
+	start[(*i)++] = 0;
+	return (start);
+}
+
 char	*parse_quote(char *input, int *index)
 {
 	char	*start;
@@ -40,14 +55,9 @@ char	*parse_quote(char *input, int *index)
 	char	*res;
 	int		i;
 
-	i = *index;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	while (start[i] && start[i] != '\'')
-		i++;
-	if (check_unclosed(start, i, input))
+	start = init_q_start(&i, index, input);
+	if (!start)
 		return (NULL);
-	start[i++] = 0;
 	mid = ft_strdup(start + *index + 1);
 	res = helper(start, mid);
 	*index = ft_strlen(res) - 1;

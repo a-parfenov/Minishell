@@ -1,26 +1,5 @@
 #include "../include/minishell.h"
 
-int	check_pipe_redirects(t_pipes *pipe)
-{
-	int		i;
-	int		count;
-
-	count = 0;
-	if (pipe->is_redirect != -1)
-	{
-		i = 0;
-		while (pipe->arg[i])
-		{
-			if (ft_strlen(pipe->arg[i]) == 0)
-				count++;
-			i++;
-		}
-	}
-	if (pipe->is_redirect + pipe->is_was_dollar != count)
-		return (1);
-	return (0);
-}
-
 char	**init_res(char **res, char **arg)
 {
 	int		i;
@@ -61,36 +40,67 @@ char	**re_build_argv(char **arg)
 	return (res);
 }
 
-void	exe_fork(char *command, t_obj *o)
+void	child(char *command, t_obj *o, int fd_in, int fd_out)
 {
 	char	**argv;
-	pid_t	pid;
+
+	argv = re_build_argv(o->pipes->arg);
+	if (o->pipes->is_heredoc)
+		exe_heredoc(o->pipes);
+	if (o->is_pipe)
+		init_pipe_fds(fd_in, fd_out, o);
+	init_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
+	execve(argv[0], argv, o->env);
+	micro_print_err(command);
+	free_arr(argv);
+	exit(EXIT_FAILURE);
+}
+
+void	parent(pid_t pid, t_obj *o, int pipe_in, int pipe_out)
+{
 	int		status;
 
+	if (o->is_pipe)
+	{
+		close(pipe_out);
+		dup2(pipe_in, o->tmp_in);
+	}
+	waitpid(pid, &status, 0);
+	g_exit = WEXITSTATUS(status);
+	printf("exit code %d\n", g_exit);
+	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
+	close(pipe_in);
+	close(pipe_out);
+}
+
+void	exe_fork(char *command, t_obj *o)
+{
+	pid_t	pid;
+	int		pipe_fd[2];
+
+	if (o->is_pipe)
+	{
+		if (pipe(pipe_fd) < 0)
+		{
+			perror(ERROR_NAME);
+			return;
+		}
+//		printf("pipe_fd 0 %d\n", pipe_fd[0]);
+//		printf("pipe_fd 1 %d\n", pipe_fd[1]);
+	}
 	pid = fork();
 	if (pid < 0)
 	{
 		perror(ERROR_NAME);
-		exit(1);
-	}
-	else if (pid == 0)
-	{
-		argv = re_build_argv(o->pipes->arg);
-		if (o->pipes->heredoc)
-			exe_heredoc(o->pipes);
-		init_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
-		execve(argv[0], argv, o->env);
-		micro_print_err(command);
 		exit(EXIT_FAILURE);
 	}
+	else if (pid == 0)
+		child(command, o, pipe_fd[0], pipe_fd[1]);
 	else
-	{
-		wait(&status);
-		close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
-	}
+		parent(pid, o, pipe_fd[0], pipe_fd[1]);
 }
 
-void	exe_single_command(t_obj *o)
+void	exe_command(t_obj *o)
 {
 	char	*command;
 

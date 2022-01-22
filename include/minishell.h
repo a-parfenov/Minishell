@@ -37,7 +37,7 @@
 
 int	g_exit;
 
-typedef	struct s_link
+typedef struct s_link
 {
 	char			*str;
 	struct s_link	*next;
@@ -45,6 +45,7 @@ typedef	struct s_link
 
 typedef struct s_pipes
 {
+	int				index;
 	char			**arg;
 	char			*heredoc;
 	struct s_pipes	*next;
@@ -71,12 +72,16 @@ typedef struct s_obj
 {
 	char	**env;
 	char	*heredoc;
+	int		is_pipe;
 	int		fd_in;
 	int		fd_out;
 	int		fd_re_out;
 	int		is_heredoc;
 	int		is_redirect;
 	int		is_was_dollar;
+	int		pipe_index;
+	int		parse_flag;
+	int		tmp_in;
 	t_env	*env_st;
 	t_env	*env_export;
 	t_pipes	*pipes;
@@ -109,6 +114,8 @@ char	*build_file(char *file, t_obj *o);
 char	*build_error_str(char *file);
 void	put_str_to_link(char *str, t_obj *o);
 void	put_link_to_pipe(t_obj *o);
+char	*init_start(int *i, int *index, char *input);
+char	*init_rewrite_start(int *i, int *index, char *input);
 char	*get_next_line(int fd);
 
 t_link	*link_new_node(char *command);
@@ -133,10 +140,12 @@ void	micro_print_err(char *command);
 char	*find_command(char **arg);
 char	*find_command_in_env(char *command);
 void	exe_heredoc(t_pipes *pipes);
+void	init_pipe_fds(int fd_in, int fd_out, t_obj *o);
 
 void	exe(t_obj *o);
 void	fake_exe(t_obj *o);
-void	exe_single_command(t_obj *o);
+void	exe_command(t_obj *o);
+int		check_pipe_redirects(t_pipes *pipe);
 
 void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);
