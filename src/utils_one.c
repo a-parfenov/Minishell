@@ -56,9 +56,9 @@ void	close_fds(int fd1, int fd2, int fd3)
 void	init_fds(int fd_in, int fd_out, int fd_re_out)
 {
 	if (fd_in != -1)
-		dup2(fd_in, 0);
+		dup2(fd_in, STDIN_FILENO);
 	if (fd_re_out != -1)
-		dup2(fd_re_out, 1);
+		dup2(fd_re_out, STDOUT_FILENO);
 	if (fd_out != -1)
-		dup2(fd_out, 1);
+		dup2(fd_out, STDOUT_FILENO);
 }

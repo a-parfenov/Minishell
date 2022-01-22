@@ -14,7 +14,7 @@
 
 void	free_env_struct(t_obj *o)
 {
-	t_env *begin;
+	t_env	*begin;
 
 	while (o->env_st)
 	{
@@ -23,14 +23,6 @@ void	free_env_struct(t_obj *o)
 		o->env_st = o->env_st->next;
 		free(begin);
 	}
-}
-
-void	free_o(t_obj *o)
-{
-	free_pipes(&o->pipes);
-	free(o->heredoc);
-	// free_env_struct(o);
-	// free(o);
 }
 
 char	*redirects(char *input, int *i, t_obj *o)
@@ -46,11 +38,8 @@ char	*redirects(char *input, int *i, t_obj *o)
 	return (input);
 }
 
-char	*combine(char *input, t_obj *o)
+char	*combine(int i, char *input, t_obj *o)
 {
-	int	i;
-
-	i = 0;
 	while (input[i])
 	{
 		if (input[i] == '\'')
@@ -70,7 +59,8 @@ char	*combine(char *input, t_obj *o)
 			return (NULL);
 		i++;
 	}
-	put_str_to_link(input, o);
+	if (ft_strlen(input) != 0)
+		put_str_to_link(input, o);
 	put_link_to_pipe(o);
 	return (input);
 }
@@ -78,22 +68,29 @@ char	*combine(char *input, t_obj *o)
 void	parse(char *input, t_obj *o)
 {
 	t_pipes	*tmp;
+	int		i;
 
 	if (input[0] == 0)
 	{
 		free(input);
-		// free(o);
 		return ;
 	}
 	input = delete_spaces(input);
-	input = combine(input, o);
+	i = 0;
+	input = combine(i, input, o);
 	if (!input)
 	{
-		free_o(o);
+		o->pipe_index = 0;
+		free_link(&o->link);
+		free_pipes(&o->pipes);
+		g_exit = 1;
+		printf("exit code %d\n", g_exit);
 		return ;
 	}
+	if (ft_strlen(input) == 0)
+		free(input);
 	tmp = o->pipes;
 	exe(o);
 	o->pipes = tmp;
-	free_o(o);
+	free_pipes(&o->pipes);
 }

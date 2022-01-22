@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char				*input;
 	t_obj				*o;
@@ -27,11 +27,12 @@ int main(int argc, char **argv, char **env)
 	{
 		input = readline(SHELL_NAME);
 		if (!input)
-			break;
+			break ;
 		if (ft_strlen(input) != 0)
 			add_history(input);
 		parse(input, o);
 	}
 	free_env_struct(o);
+	free(o->heredoc);
 	free(o);
 }

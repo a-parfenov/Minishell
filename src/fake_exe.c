@@ -31,8 +31,8 @@ void	fake_exe(t_obj *o)
 	if (!command)
 		command = ft_strdup("");
 	else
-	if (!ft_strchr(command, '/'))
-		command = find_command_in_env(command);
+		if (!ft_strchr(command, '/'))
+			command = find_command_in_env(command);
 	arg[0] = command;
 	arg[1] = "";
 	arg[2] = NULL;

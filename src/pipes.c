@@ -19,6 +19,7 @@ t_pipes	*pipes_new_node(char **arg, t_obj *o)
 	new = malloc(sizeof(t_pipes));
 	if (!new)
 		return (NULL);
+	new->index = o->pipe_index;
 	new->arg = arg;
 	if (o->heredoc)
 		new->heredoc = ft_strdup(o->heredoc);

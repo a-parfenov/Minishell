@@ -32,6 +32,21 @@ static char	*helper(char *start, char *mid)
 	return (res);
 }
 
+char	*init_dq_start(int *i, int *index, char *input)
+{
+	char	*start;
+
+	*i = *index;
+	start = ft_strdup(input);
+	start[(*i)++] = 0;
+	while (start[*i] && start[*i] != '"')
+		(*i)++;
+	if (check_unclosed(start, *i, input))
+		return (NULL);
+	start[(*i)++] = 0;
+	return (start);
+}
+
 char	*parse_dquote(char *input, int *index, t_obj *o)
 {
 	char	*start;
@@ -40,14 +55,9 @@ char	*parse_dquote(char *input, int *index, t_obj *o)
 	char	*res;
 	int		i;
 
-	i = *index;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	while (start[i] && start[i] != '"')
-		i++;
-	if (check_unclosed(start, i, input))
+	start = init_dq_start(&i, index, input);
+	if (!start)
 		return (NULL);
-	start[i++] = 0;
 	mid = ft_strdup(start + *index + 1);
 	if (ft_strchr(mid, '$'))
 		mid = find_dollar(mid, o);
@@ -56,6 +66,8 @@ char	*parse_dquote(char *input, int *index, t_obj *o)
 	start = res;
 	end = ft_substr(input, i, ft_strlen(input));
 	res = ft_strjoin(res, end);
+	if (ft_strlen(res) == 0)
+		put_str_to_link(ft_strdup(""), o);
 	free_three_str(input, start, end);
 	return (res);
 }

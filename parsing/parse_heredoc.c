@@ -36,6 +36,7 @@ void	read_heredoc(char *limit, t_obj *o)
 	o->heredoc = res;
 	o->is_heredoc = 1;
 	o->is_redirect++;
+	put_str_to_link(ft_strdup(""), o);
 	free_two_str(limit, str);
 }
 
@@ -47,16 +48,13 @@ char	*parse_heredoc(char *input, int *index, t_obj *o)
 	int		i;
 	int		j;
 
-	i = (*index)--;
-	start = ft_strdup(input);
-	start[i++] = 0;
-	i++;
-	pass_space_one(input, &i);
+	start = init_rewrite_start(&i, index, input);
 	if (check_len(input + i) || check_token(input[i]))
 		return (free_two_str(start, input));
 	j = i;
 	pass_space_two(input, &i);
 	end = ft_substr(input, i, ft_strlen(input));
+	end = delete_spaces(end);
 	start[i++] = 0;
 	limit = ft_strdup(start + j);
 	read_heredoc(limit, o);

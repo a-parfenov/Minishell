@@ -27,7 +27,7 @@ t_env	*lst_new_env(char *arg)
 
 int	lst_add_back(t_obj	*o, t_env *lst)
 {
-	t_env *begin;
+	t_env	*begin;
 
 	if (lst == NULL)
 		return (1);
@@ -74,15 +74,19 @@ t_obj	*init_o(char **env)
 	o = malloc(sizeof(t_obj));
 	if (!o)
 		return (NULL);
+	o->is_pipe = 0;
 	o->env = env;
 	o->env_st = NULL;
 	o->heredoc = NULL;
+	o->tmp_in = -1;
 	o->fd_in = -1;
 	o->fd_out = -1;
 	o->fd_re_out = -1;
 	o->is_heredoc = 0;
 	o->is_redirect = 0;
 	o->is_was_dollar = 0;
+	o->pipe_index = 0;
+	o->parse_flag = 0;
 	o->pipes = NULL;
 	o->link = NULL;
 	o->env_export = NULL;
