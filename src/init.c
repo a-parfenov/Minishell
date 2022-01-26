@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:18 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/18 16:38:27 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/25 22:21:50 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ void	env_struct(t_obj	*o)
 			if (tmp == NULL)
 				perror(" malloc");
 			lst_add_back(o, lst_new_env(tmp));
-			// if (ft_strncmp(tmp, "PWD=", 4) == 0)
-			// 	o->pwd = &tmp[4];
-			// else if ((ft_strncmp(tmp, "OLDPWD=", 7) == 0))
-			// 	o->old_pwd = &tmp[7];
-			// printf("+++ %s \n", o->pwd);
-			// printf("+++ %s \n", o->old_pwd);
 		}
 	}
 }
@@ -91,7 +85,6 @@ t_obj	*init_o(char **env)
 	o->link = NULL;
 	o->env_export = NULL;
 	env_struct(o);
-	sort_env(o);
 	return (o);
 }
 
