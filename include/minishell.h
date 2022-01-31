@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/26 11:42:56 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:49:12 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
 # define SHELL_NAME "minishell% "
 # define ERROR_NAME "minishell"
@@ -82,6 +83,7 @@ typedef struct s_obj
 	int		pipe_index;
 	int		parse_flag;
 	int		tmp_in;
+	char	*shlvl;
 	t_env	*env_st;
 	t_env	*env_export;
 	t_pipes	*pipes;
@@ -158,8 +160,11 @@ void	sort_env(t_obj *o);
 int		ft_strcmp_c(char s1, char s2);
 int		ft_strchr_len(const char *s, int c);
 void	command_unset(t_obj *o);
-int	check_for_error_data(char *data, char c);
+int		check_for_error_data(char *data, char c);
 t_env	*find_env_data(t_env *env, char *data);
+void	shell_level(t_obj *o);
+void	add_new_data(t_obj *o, char *command);
+char	**build_envp(t_env *env);
 
 t_env	*lst_new_env(char *arg);
 int		lst_add_back(t_obj	*o, t_env *lst);

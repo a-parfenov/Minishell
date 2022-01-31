@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 23:17:58 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/17 17:32:10 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:54:07 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	command_exit(char **code)
 		if (!is_numbers_to_string(*code))
 		{
 			ft_putstr_fd("exit\nexit: ", 1);
-			ft_putstr_fd(*code, 1);
-			ft_putstr_fd(": numeric argument required\n", 1);
+			// ft_putstr_fd(*code, 1);
+			// ft_putstr_fd(": numeric argument required\n", 1);
 			exit(255);
 		}
 		else

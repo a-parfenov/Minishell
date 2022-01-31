@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:29 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/24 11:20:34 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:13:24 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv, char **env)
 	o = init_o(env);
 	if (!o)
 		exit(EXIT_FAILURE);
+	shell_level(o);
 	while (1)
 	{
 		input = readline(SHELL_NAME);
