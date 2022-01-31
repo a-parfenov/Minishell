@@ -12,6 +12,27 @@
 
 #include "../include/minishell.h"
 
+void	handler(int sig)
+{
+	(void)sig;
+	rl_replace_line("", 0);
+	printf("\n");
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	sig_handler(void)
+{
+	struct sigaction	sa;
+	sigset_t			set;
+
+	sa.sa_handler = handler;
+	sigemptyset(&set);
+	sigaddset(&set, SIGINT);
+	sa.sa_mask = set;
+	sigaction(SIGINT, &sa, NULL);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char				*input;
@@ -25,6 +46,7 @@ int	main(int argc, char **argv, char **env)
 		exit(EXIT_FAILURE);
 	while (1)
 	{
+		sig_handler();
 		input = readline(SHELL_NAME);
 		if (!input)
 			break ;
@@ -32,6 +54,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		parse(input, o);
 	}
+	clear_history();
 	free_env_struct(o);
 	free(o->heredoc);
 	free(o);

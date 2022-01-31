@@ -21,6 +21,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
 # define SHELL_NAME "minishell% "
 # define ERROR_NAME "minishell"
@@ -154,5 +155,7 @@ void	command_cd(t_obj *o);
 char	*get_address(void);
 int		command_exit(char **code);
 void	command_export(t_obj *o);
+
+void	rl_replace_line(const char *buffer, int val);
 
 #endif
