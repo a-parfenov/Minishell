@@ -2,6 +2,8 @@
 
 void	execute_fork(pid_t pid, char *command, char *arg[], t_obj *o)
 {
+	int	status;
+
 	if (pid < 0)
 	{
 		perror(ERROR_NAME);
@@ -15,7 +17,8 @@ void	execute_fork(pid_t pid, char *command, char *arg[], t_obj *o)
 	}
 	else
 	{
-		wait(NULL);
+		wait(&status);
+		g_exit = WEXITSTATUS(status);
 		free(command);
 	}
 }
@@ -27,6 +30,8 @@ void	fake_exe(t_obj *o)
 	pid_t	pid;
 
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
+	close(o->pipe_fd_in);
+	close(o->pipe_fd_out);
 	command = find_command(o->pipes->arg);
 	if (!command)
 		command = ft_strdup("");

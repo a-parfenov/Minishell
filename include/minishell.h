@@ -21,6 +21,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
 # define SHELL_NAME "minishell% "
 # define ERROR_NAME "minishell"
@@ -82,6 +83,8 @@ typedef struct s_obj
 	int		pipe_index;
 	int		parse_flag;
 	int		tmp_in;
+	int		pipe_fd_in;
+	int		pipe_fd_out;
 	t_env	*env_st;
 	t_env	*env_export;
 	t_pipes	*pipes;
@@ -163,5 +166,7 @@ t_env	*find_env_data(t_env *env, char *data);
 
 t_env	*lst_new_env(char *arg);
 int		lst_add_back(t_obj	*o, t_env *lst);
+
+void	rl_replace_line(const char *buffer, int val);
 
 #endif
