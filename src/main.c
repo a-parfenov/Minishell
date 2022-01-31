@@ -26,6 +26,7 @@ void	sig_handler(void)
 	struct sigaction	sa;
 	sigset_t			set;
 
+	signal(SIGQUIT, SIG_IGN);
 	sa.sa_handler = handler;
 	sigemptyset(&set);
 	sigaddset(&set, SIGINT);
@@ -35,8 +36,8 @@ void	sig_handler(void)
 
 int	main(int argc, char **argv, char **env)
 {
-	char				*input;
-	t_obj				*o;
+	char	*input;
+	t_obj	*o;
 
 	(void)argv;
 	(void)argc;
@@ -49,12 +50,14 @@ int	main(int argc, char **argv, char **env)
 		sig_handler();
 		input = readline(SHELL_NAME);
 		if (!input)
+		{
+			ft_putstr_fd("\e[1A\e[12C" "\bexit\n", 1);
 			break ;
+		}
 		if (ft_strlen(input) != 0)
 			add_history(input);
 		parse(input, o);
 	}
-	clear_history();
 	free_env_struct(o);
 	free(o->heredoc);
 	free(o);

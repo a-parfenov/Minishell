@@ -83,6 +83,8 @@ typedef struct s_obj
 	int		pipe_index;
 	int		parse_flag;
 	int		tmp_in;
+	int		pipe_fd_in;
+	int		pipe_fd_out;
 	t_env	*env_st;
 	t_env	*env_export;
 	t_pipes	*pipes;

@@ -76,18 +76,7 @@ void	parent(pid_t pid, t_obj *o, int pipe_in, int pipe_out)
 void	exe_fork(char *command, t_obj *o)
 {
 	pid_t	pid;
-	int		pipe_fd[2];
 
-	if (o->is_pipe)
-	{
-		if (pipe(pipe_fd) < 0)
-		{
-			perror(ERROR_NAME);
-			return;
-		}
-//		printf("pipe_fd 0 %d\n", pipe_fd[0]);
-//		printf("pipe_fd 1 %d\n", pipe_fd[1]);
-	}
 	pid = fork();
 	if (pid < 0)
 	{
@@ -95,9 +84,9 @@ void	exe_fork(char *command, t_obj *o)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
-		child(command, o, pipe_fd[0], pipe_fd[1]);
+		child(command, o, o->pipe_fd_in, o->pipe_fd_out);
 	else
-		parent(pid, o, pipe_fd[0], pipe_fd[1]);
+		parent(pid, o, o->pipe_fd_in, o->pipe_fd_out);
 }
 
 void	exe_command(t_obj *o)
