@@ -73,6 +73,8 @@ t_obj	*init_o(char **env)
 	o->env_st = NULL;
 	o->heredoc = NULL;
 	o->tmp_in = -1;
+	o->pipe_fd_in = -1;
+	o->pipe_fd_out = -1;
 	o->fd_in = -1;
 	o->fd_out = -1;
 	o->fd_re_out = -1;

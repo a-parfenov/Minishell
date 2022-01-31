@@ -12,8 +12,27 @@
 
 #include "../include/minishell.h"
 
+void	init_o_fds(t_obj *o)
+{
+	int		pipe_fd[2];
+
+	if (o->is_pipe)
+	{
+		if (pipe(pipe_fd) < 0)
+		{
+			perror(ERROR_NAME);
+			return;
+		}
+		printf("pipe_fd 0 %d\n", pipe_fd[0]);
+		printf("pipe_fd 1 %d\n", pipe_fd[1]);
+		o->pipe_fd_in = pipe_fd[0];
+		o->pipe_fd_out = pipe_fd[1];
+	}
+}
+
 void	single(t_obj *o)
 {
+	init_o_fds(o);
 	if (ft_strncmp(o->pipes->arg[0], "env", 3) == 0)
 		command_env(o);
 	else if (ft_strncmp(o->pipes->arg[0], "pwd", 3) == 0)

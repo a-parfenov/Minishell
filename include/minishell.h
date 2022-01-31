@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/31 19:49:12 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/31 20:03:30 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_obj
 	int		parse_flag;
 	int		tmp_in;
 	char	*shlvl;
+	int		pipe_fd_in;
+	int		pipe_fd_out;
 	t_env	*env_st;
 	t_env	*env_export;
 	t_pipes	*pipes;
@@ -168,5 +170,7 @@ char	**build_envp(t_env *env);
 
 t_env	*lst_new_env(char *arg);
 int		lst_add_back(t_obj	*o, t_env *lst);
+
+void	rl_replace_line(const char *buffer, int val);
 
 #endif

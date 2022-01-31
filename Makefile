@@ -61,7 +61,8 @@ END			=	"\033[0m"
 all: $(LIB) $(NAME)
 
 $(NAME):	$(OBJS)
-			@$(CC) $(CFLAGS) -L /usr/lib -lreadline -L libft -lft $(OBJS) -o $@
+# @$(CC) $(CFLAGS) /usr/lib -lreadline -L libft -lft $(OBJS) -o $@
+			@$(CC) $(CFLAGS) -L /Users/$(USER)/.brew/opt/readline/lib/ -lreadline -L libft -lft $(OBJS) -o $@
 			@echo ${GREEN} "\n< Minishell binary -> done >\n" ${END}
 
 $(LIB):
