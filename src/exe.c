@@ -23,8 +23,8 @@ void	init_o_fds(t_obj *o)
 			perror(ERROR_NAME);
 			return;
 		}
-		printf("pipe_fd 0 %d\n", pipe_fd[0]);
-		printf("pipe_fd 1 %d\n", pipe_fd[1]);
+//		printf("pipe_fd 0 %d\n", pipe_fd[0]);
+//		printf("pipe_fd 1 %d\n", pipe_fd[1]);
 		o->pipe_fd_in = pipe_fd[0];
 		o->pipe_fd_out = pipe_fd[1];
 	}
