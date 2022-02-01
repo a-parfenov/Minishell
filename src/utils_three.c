@@ -44,3 +44,25 @@ void	init_pipe_fds(int fd_in, int fd_out, t_obj *o)
 		close(o->tmp_in);
 	}
 }
+
+int	init_logic_fd(t_obj *o)
+{
+	int		fd;
+
+	fd = 1;
+	if (o->is_pipe)
+	{
+		if (o->pipes->index == o->pipe_index - 1)
+			fd = 1;
+		else
+		{
+			dup2(o->pipe_fd_in, o->tmp_in);
+			fd = o->pipe_fd_out;
+		}
+	}
+	if (o->pipes->fd_re_out != -1)
+		fd = o->pipes->fd_re_out;
+	if (o->pipes->fd_out != -1)
+		fd = o->pipes->fd_out;
+	return (fd);
+}

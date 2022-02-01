@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:10 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/26 11:27:44 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/17 22:18:46 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	init_o_fds(t_obj *o)
 			perror(ERROR_NAME);
 			return;
 		}
-//		printf("pipe_fd 0 %d\n", pipe_fd[0]);
-//		printf("pipe_fd 1 %d\n", pipe_fd[1]);
 		o->pipe_fd_in = pipe_fd[0];
 		o->pipe_fd_out = pipe_fd[1];
 	}
@@ -43,12 +41,12 @@ void	single(t_obj *o)
 		command_cd(o);
 	else if (ft_strncmp(o->pipes->arg[0], "exit", 4) == 0)
 		command_exit(o->pipes->arg);
-	else if (ft_strncmp(o->pipes->arg[0], "export", 6) == 0)
+	else if (ft_strncmp(o->pipes->arg[0], "export", 4) == 0)
 		command_export(o);
-	else if (ft_strncmp(o->pipes->arg[0], "unset", 5) == 0)
-		command_unset(o);
 	else
 		exe_command(o);
+	close(o->pipe_fd_in);
+	close(o->pipe_fd_out);
 }
 
 void	exe(t_obj *o)

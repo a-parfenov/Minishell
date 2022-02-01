@@ -26,15 +26,7 @@ void	command_env(t_obj	*o)
 	t_env	*tmp;
 	int		fd;
 
-	if (o->is_pipe)
-	{
-		printf("hello %d %d %d\n", o->pipe_fd_out, o->pipes->fd_re_out, o->pipes->fd_out);
-		fd = o->pipe_fd_out;
-	}
-	if (o->pipes->fd_re_out != -1)
-		fd = o->pipes->fd_re_out;
-	if (o->pipes->fd_out != -1)
-		fd = o->pipes->fd_out;
+	fd = init_logic_fd(o);
 	tmp = o->env_st;
 	while (tmp != NULL)
 	{
@@ -42,8 +34,7 @@ void	command_env(t_obj	*o)
 		tmp = tmp->next;
 	}
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
-	close(o->pipe_fd_in);
-	close(o->pipe_fd_out);
+	g_exit = 0;
 	// write(1, "\n", 1);
 	// write(1, "\n", 1);
 }
