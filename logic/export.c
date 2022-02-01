@@ -92,6 +92,5 @@ void	command_export(t_obj *o)
 			}
 			a++;
 		}
-		
 	}
 }
