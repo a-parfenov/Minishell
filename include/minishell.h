@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/17 22:18:57 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/31 20:03:30 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_obj
 	int		pipe_index;
 	int		parse_flag;
 	int		tmp_in;
+	char	*shlvl;
 	int		pipe_fd_in;
 	int		pipe_fd_out;
 	t_env	*env_st;
@@ -157,6 +158,18 @@ void	command_cd(t_obj *o);
 char	*get_address(void);
 int		command_exit(char **code);
 void	command_export(t_obj *o);
+void	sort_env(t_obj *o);
+int		ft_strcmp_c(char s1, char s2);
+int		ft_strchr_len(const char *s, int c);
+void	command_unset(t_obj *o);
+int		check_for_error_data(char *data, char c);
+t_env	*find_env_data(t_env *env, char *data);
+void	shell_level(t_obj *o);
+void	add_new_data(t_obj *o, char *command);
+char	**build_envp(t_env *env);
+
+t_env	*lst_new_env(char *arg);
+int		lst_add_back(t_obj	*o, t_env *lst);
 
 void	rl_replace_line(const char *buffer, int val);
 
