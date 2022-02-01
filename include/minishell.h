@@ -167,6 +167,7 @@ t_env	*find_env_data(t_env *env, char *data);
 void	shell_level(t_obj *o);
 void	add_new_data(t_obj *o, char *command);
 char	**build_envp(t_env *env);
+int		init_logic_fd(t_obj *o);
 
 t_env	*lst_new_env(char *arg);
 int		lst_add_back(t_obj	*o, t_env *lst);

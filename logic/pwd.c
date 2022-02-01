@@ -14,15 +14,20 @@
 
 void	command_pwd(t_obj *o)
 {
+	int	fd;
+
+	fd = init_logic_fd(o);
 	while (o->env_st != NULL)
 	{
 		if (ft_strncmp(o->env_st->env_str, "PWD=", 4) == 0)
 		{
-			ft_putendl_fd(o->env_st->env_str + 4, o->pipes->fd_in);
+			ft_putendl_fd(o->env_st->env_str + 4, fd);
 			break;
 		}
 		o->env_st = o->env_st->next;
 	}
+	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
+	g_exit = 0;
 }
 
 char	*get_address(void)
