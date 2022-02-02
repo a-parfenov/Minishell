@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:29 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/31 18:13:24 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/01/17 10:32:03 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 void	handler(int sig)
 {
 	(void)sig;
-	rl_replace_line("", 0);
-	printf("\n");
 	rl_on_new_line();
 	rl_redisplay();
+	write(1, "  \n", 3);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_exit = 1;
 }
 
 void	sig_handler(void)
@@ -27,6 +30,7 @@ void	sig_handler(void)
 	sigset_t			set;
 
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 	sa.sa_handler = handler;
 	sigemptyset(&set);
 	sigaddset(&set, SIGINT);
@@ -34,18 +38,10 @@ void	sig_handler(void)
 	sigaction(SIGINT, &sa, NULL);
 }
 
-int	main(int argc, char **argv, char **env)
+void	loop(t_obj *o)
 {
 	char	*input;
-	t_obj	*o;
 
-	(void)argv;
-	(void)argc;
-	g_exit = 0;
-	o = init_o(env);
-	if (!o)
-		exit(EXIT_FAILURE);
-	shell_level(o);
 	while (1)
 	{
 		sig_handler();
@@ -59,6 +55,19 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 		parse(input, o);
 	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_obj	*o;
+
+	(void)argv;
+	(void)argc;
+	g_exit = 0;
+	o = init_o(env);
+	if (!o)
+		exit(EXIT_FAILURE);
+	loop(o);
 	free_env_struct(o);
 	free(o->heredoc);
 	free(o);

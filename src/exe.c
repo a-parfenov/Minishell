@@ -30,6 +30,8 @@ void	init_o_fds(t_obj *o)
 
 void	single(t_obj *o)
 {
+	if (!o->pipes->arg[0])
+		return ;
 	init_o_fds(o);
 	if (ft_strncmp(o->pipes->arg[0], "env", 3) == 0)
 		command_env(o);

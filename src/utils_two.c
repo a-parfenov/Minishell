@@ -10,7 +10,6 @@ void	micro_print_err(char *command)
 	write(2, COMMAND_TOKEN, ft_strlen(COMMAND_TOKEN));
 	write(2, "\n", 1);
 	free_two_str(command, err);
-	g_exit = 127;
 }
 
 char	*find_command(char **arg)
