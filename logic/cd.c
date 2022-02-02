@@ -78,7 +78,7 @@ void	cd_back(t_obj *o)
 	buf = get_address();
 	if (!buf)
 		buf = way;
-	printf("||| %s\n", buf);
+//	printf("||| %s\n", buf);
 	last = ft_strrchr(buf, '/');
 	prev = ft_substr(buf, 0, ft_strlen(buf) - ft_strlen(last));
 	if (!prev)
@@ -109,11 +109,10 @@ void	command_cd(t_obj *o)
 	}
 	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 3) && ft_strlen(o->pipes->arg[1]) == 2)
 		cd_back(o);
-	else
-		if (!do_chdir(o->pipes->arg[1]))
-		{
-			get_variable_env(o, &way, "PWD=", 4);
-			mercury_repl_env(o, "OLDPWD=", way, 7);
-			mercury_repl_env(o, "PWD=", o->pipes->arg[1], 4);
-		}
+	else if (!do_chdir(o->pipes->arg[1]))
+	{
+		get_variable_env(o, &way, "PWD=", 4);
+		mercury_repl_env(o, "OLDPWD=", way, 7);
+		mercury_repl_env(o, "PWD=", o->pipes->arg[1], 4);
+	}
 }

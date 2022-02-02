@@ -42,9 +42,11 @@ void	single(t_obj *o)
 	else if (ft_strncmp(o->pipes->arg[0], "cd", 2) == 0)
 		command_cd(o);
 	else if (ft_strncmp(o->pipes->arg[0], "exit", 4) == 0)
-		command_exit(o->pipes->arg);
+		command_exit(o->pipes->arg, o);
 	else if (ft_strncmp(o->pipes->arg[0], "export", 4) == 0)
 		command_export(o);
+	else if (ft_strncmp(o->pipes->arg[0], "unset", 5) == 0)
+		command_unset(o);
 	else
 		exe_command(o);
 	close(o->pipe_fd_in);
