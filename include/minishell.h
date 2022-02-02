@@ -157,7 +157,7 @@ void	command_pwd(t_obj *o);
 void	command_echo(t_pipes	*pipes, t_obj *o);
 void	command_cd(t_obj *o);
 char	*get_address(void);
-int		command_exit(char **code);
+void	command_exit(char **code, t_obj *o);
 void	command_export(t_obj *o);
 void	sort_env(t_obj *o);
 int		ft_strcmp_c(char s1, char s2);

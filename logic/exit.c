@@ -37,54 +37,40 @@ int	is_numbers_to_string(char *str)
 	return (1);
 }
 
-int	is_numbers_to_arguments(char **str)
+static void	ft_exit_util(char **code)
 {
-	int	i;
-
-	i = -1;
-	while (str[++i])
+	if (is_numbers_to_string(code[1]))
 	{
-		if (!is_numbers_to_string(str[i]))
-			return (0);
+		ft_putstr_fd("exit\n", 1);
+		exit(ft_atoi(code[1]));
 	}
-	return (1);
+	else
+	{
+		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("minishell: exit: ", 1);
+		ft_putstr_fd(code[1], 1);
+		ft_putstr_fd(": numeric argument required\n", 1);
+		exit(255);
+	}
 }
 
-//static int	ft_exit_util(char **code)
-//{
-//	if (is_numbers_to_string(*code))
-//	{
-//		ft_putstr_fd("exit: too many arguments\n", 1);
-//		return (-1);
-//	}
-//	else
-//	{
-//		ft_putstr_fd("exit\nexit: ", 1);
-//		ft_putstr_fd(*code, 1);
-//		ft_putstr_fd(": numeric argument required\n", 1);
-//		exit(255);
-//	}
-//	return (0);
-//}
-
-int	command_exit(char **code)
+void	command_exit(char **code, t_obj *o)
 {
 	if (!code || !*code)
 		exit(0);
+	if (o->is_pipe)
+		return ;
 	if (len_argvs(code) == 1)
 	{
-		if (!is_numbers_to_string(*code))
-		{
-			ft_putstr_fd("exit\n", 1);
-			// ft_putstr_fd(*code, 1);
-			// ft_putstr_fd(": numeric argument required\n", 1);
-			exit(255);
-		}
-		else
-			exit(ft_atoi(*code));
+		ft_putstr_fd("exit\n", 1);
+		exit(EXIT_SUCCESS);
 	}
+	else if (len_argvs(code) == 2)
+		ft_exit_util(code);
 	else
-		return (-1);
-//		return (ft_exit_util(code));
-	return (0);
+	{
+		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
+		return ;
+	}
 }
