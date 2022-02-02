@@ -50,22 +50,22 @@ int	is_numbers_to_arguments(char **str)
 	return (1);
 }
 
-static int	ft_exit_util(char **code)
-{
-	if (is_numbers_to_string(*code))
-	{
-		ft_putstr_fd("exit: too many arguments\n", 1);
-		return (-1);
-	}
-	else
-	{
-		ft_putstr_fd("exit\nexit: ", 1);
-		ft_putstr_fd(*code, 1);
-		ft_putstr_fd(": numeric argument required\n", 1);
-		exit(255);
-	}
-	return (0);
-}
+//static int	ft_exit_util(char **code)
+//{
+//	if (is_numbers_to_string(*code))
+//	{
+//		ft_putstr_fd("exit: too many arguments\n", 1);
+//		return (-1);
+//	}
+//	else
+//	{
+//		ft_putstr_fd("exit\nexit: ", 1);
+//		ft_putstr_fd(*code, 1);
+//		ft_putstr_fd(": numeric argument required\n", 1);
+//		exit(255);
+//	}
+//	return (0);
+//}
 
 int	command_exit(char **code)
 {
@@ -75,7 +75,7 @@ int	command_exit(char **code)
 	{
 		if (!is_numbers_to_string(*code))
 		{
-			ft_putstr_fd("exit\nexit: ", 1);
+			ft_putstr_fd("exit\n", 1);
 			// ft_putstr_fd(*code, 1);
 			// ft_putstr_fd(": numeric argument required\n", 1);
 			exit(255);
@@ -85,6 +85,6 @@ int	command_exit(char **code)
 	}
 	else
 		return (-1);
-		return (ft_exit_util(code));
+//		return (ft_exit_util(code));
 	return (0);
 }

@@ -24,21 +24,23 @@ int	args_count(char **arg)
 	return (count);
 }
 
-void	putstr_while(char **arg, int count_arg, int i, int option_n)
+void	putstr_while(char **arg, t_obj *o, int i, int option_n)
 {
-	ft_putstr_fd(arg[i], 1);
+	int	fd;
+
+	fd = init_logic_fd(o);
+	ft_putstr_fd(arg[i], fd);
 	if (arg[i + 1])
-		ft_putchar_fd(' ', 1);
-	if (i + 1 == count_arg && option_n == 0)
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd(' ', fd);
+	if (i + 1 == o->count_arg && option_n == 0)
+		ft_putchar_fd('\n', fd);
 	g_exit = 0;
 }
 
-void	command_echo(t_pipes	*pipes)
+void	command_echo(t_pipes	*pipes, t_obj *o)
 {
 	int	i;
 	int	option_n;
-	int	count_arg;
 
 	i = 1;
 	option_n = 0;
@@ -55,7 +57,7 @@ void	command_echo(t_pipes	*pipes)
 	}
 	while (pipes->arg[i] && !ft_strncmp(pipes->arg[i], "-n", 3))
 		++i;
-	count_arg = args_count(pipes->arg);
-	while (i < count_arg)
-		putstr_while(pipes->arg, count_arg, i++, option_n);
+	o->count_arg = args_count(pipes->arg);
+	while (i < o->count_arg)
+		putstr_while(pipes->arg, o, i++, option_n);
 }

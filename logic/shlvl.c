@@ -20,10 +20,10 @@ static int	check_digit(char *line)
 	while (line[i])
 	{
 		if (!ft_isdigit(line[i]))
-			return (1);
+			return (0);
 		i++;
 	}
-	return (-1);
+	return (1);
 }
 
 void	shlvl(t_obj *o)
@@ -56,16 +56,19 @@ void	shlvl(t_obj *o)
 
 void	shell_level(t_obj *o)
 {
+	t_env	*tmp;
+
 	o->shlvl = NULL;
-	while (o->env_st != NULL)
+	tmp = o->env_st;
+	while (tmp != NULL)
 	{
-		if (ft_strncmp(o->env_st->env_str, "SHLVL=", 6) == 0)
+		if (ft_strncmp(tmp->env_str, "SHLVL=", 6) == 0)
 		{
-			o->shlvl = ft_substr(o->env_st->env_str, 6, ft_strlen(o->env_st->env_str) - 6);
+			o->shlvl = ft_substr(tmp->env_str, 6, ft_strlen(tmp->env_str) - 6);
 			// printf("%s %s\n", o->env_st->env_str, o->shlvl);
 			break;
 		}
-		o->env_st = o->env_st->next;
+		tmp = tmp->next;
 	}
 	shlvl(o);
 }
