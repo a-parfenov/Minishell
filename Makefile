@@ -29,6 +29,7 @@ SRCS	=	src/main.c\
 			logic/pwd.c\
 			logic/echo.c\
 			logic/cd.c\
+			logic/cd_utils.c\
 			logic/exit.c\
 			logic/export.c\
 			logic/sort_env.c\
@@ -61,7 +62,6 @@ END			=	"\033[0m"
 all: $(LIB) $(NAME)
 
 $(NAME):	$(OBJS)
-# @$(CC) $(CFLAGS) /usr/lib -lreadline -L libft -lft $(OBJS) -o $@
 			@$(CC) $(CFLAGS) -L /Users/$(USER)/.brew/opt/readline/lib/ -lreadline -L libft -lft $(OBJS) -o $@
 			@echo ${GREEN} "\n< Minishell binary -> done >\n" ${END}
 
