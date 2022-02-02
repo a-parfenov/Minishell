@@ -12,6 +12,16 @@
 
 #include "../include/minishell.h"
 
+void	here_helper(char *res, char *limit, char *str, t_obj *o)
+{
+	free(o->heredoc);
+	o->heredoc = res;
+	o->is_heredoc = 1;
+	o->is_redirect++;
+	put_str_to_link(ft_strdup(""), o);
+	free_two_str(limit, str);
+}
+
 void	read_heredoc(char *limit, t_obj *o)
 {
 	char	*str;
@@ -24,20 +34,19 @@ void	read_heredoc(char *limit, t_obj *o)
 	res = ft_strdup("");
 	write(1, "> ", 2);
 	str = get_next_line(0);
+	if (!str)
+		return ;
 	while (ft_strcmp(str, limit) != 0)
 	{
+		if (!str)
+			return ;
 		write(1, "> ", 2);
 		tmp = res;
 		res = ft_strjoin(res, str);
 		free_two_str(tmp, str);
 		str = get_next_line(0);
 	}
-	free(o->heredoc);
-	o->heredoc = res;
-	o->is_heredoc = 1;
-	o->is_redirect++;
-	put_str_to_link(ft_strdup(""), o);
-	free_two_str(limit, str);
+	here_helper(res, limit, str, o);
 }
 
 char	*parse_heredoc(char *input, int *index, t_obj *o)

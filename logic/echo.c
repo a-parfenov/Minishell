@@ -31,6 +31,7 @@ void	putstr_while(char **arg, int count_arg, int i, int option_n)
 		ft_putchar_fd(' ', 1);
 	if (i + 1 == count_arg && option_n == 0)
 		ft_putchar_fd('\n', 1);
+	g_exit = 0;
 }
 
 void	command_echo(t_pipes	*pipes)

@@ -53,7 +53,7 @@ void	child(char *command, t_obj *o, int fd_in, int fd_out)
 	execve(argv[0], argv, o->env);
 	micro_print_err(command);
 	free_arr(argv);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
 void	parent(pid_t pid, t_obj *o, int pipe_in, int pipe_out)
