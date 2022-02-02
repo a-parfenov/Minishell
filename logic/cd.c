@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:34:28 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/02 21:09:07 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:37:58 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	mercury_repl_env(t_obj *o, char *str, char *way, int symb)
 	}
 }
 
-static int	do_chdir(char *str)
+static void	do_chdir(char *str)
 {
 	int	fd;
 
@@ -61,7 +61,6 @@ static int	do_chdir(char *str)
 		ft_putendl_fd(": Permission denied", 2);
 	if (fd > 0)
 		close(fd);
-	return (1);
 }
 
 static void	ways_cd(t_obj *o, char *way)
@@ -117,6 +116,9 @@ void	command_cd(t_obj *o)
 	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 2)
 		&& ft_strlen(o->pipes->arg[1]) == 2)
 		cd_back(o);
+	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "-", 1)
+		&& ft_strlen(o->pipes->arg[1]) == 1)
+		ft_cd_home(o);
 	else
 	{
 		get_variable_env(o, &way, "PWD=", 4);

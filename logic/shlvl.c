@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:27:14 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/31 18:20:35 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:17:09 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static int	check_digit(char *line)
 	return (1);
 }
 
-void	shlvl(t_obj *o)
+static void	shlvl(t_obj *o, char	**shlvl)
 {
 	int		tmp;
-	char	*t;
+	char	*shlvl_n;
 
 	if (check_digit(o->shlvl))
 	{
@@ -40,9 +40,10 @@ void	shlvl(t_obj *o)
 			add_new_data(o, ft_strjoin("SHLVL=", "0"));
 		else if (tmp < 1000)
 		{
-			t = ft_itoa(tmp + 1);
-			add_new_data(o, ft_strjoin("SHLVL=", t));
-			free(t);
+			shlvl_n = ft_itoa(tmp + 1);
+			*shlvl = ft_strjoin("SHLVL=", shlvl_n);
+			add_new_data(o, *shlvl);
+			free(shlvl_n);
 		}
 		else
 		{
@@ -57,6 +58,7 @@ void	shlvl(t_obj *o)
 void	shell_level(t_obj *o)
 {
 	t_env	*tmp;
+	char	*t1;
 
 	o->shlvl = NULL;
 	tmp = o->env_st;
@@ -65,10 +67,12 @@ void	shell_level(t_obj *o)
 		if (ft_strncmp(tmp->env_str, "SHLVL=", 6) == 0)
 		{
 			o->shlvl = ft_substr(tmp->env_str, 6, ft_strlen(tmp->env_str) - 6);
-			// printf("%s %s\n", o->env_st->env_str, o->shlvl);
 			break;
 		}
 		tmp = tmp->next;
 	}
-	shlvl(o);
+	t1 = NULL;
+	shlvl(o, &t1);
+	free(o->shlvl);
+	free(t1);
 }

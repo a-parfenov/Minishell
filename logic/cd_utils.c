@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 21:06:21 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/02 21:23:45 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:42:32 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,19 @@ void	cd_back(t_obj *o)
 		mercury_repl_env(o, "PWD=", d, 4);
 	else
 		mercury_repl_env(o, "PWD=", prev, 4);
+	free(buf);
+	free(prev);
+}
+
+int	ft_cd_home(t_obj *o)
+{
+	char *way;
+	
+	if (get_variable_env(o, &way, "OLDPWD=", 7))
+	{
+		ft_putendl_fd("minishell: cd: OLDPWD not set", 1);
+		return (1);
+	}
+	printf("в работе\n");
+	return (1);
 }
