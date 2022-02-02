@@ -63,27 +63,29 @@ int	ft_strchr_len(const char *s, int c)
 	return (-1);
 }
 
-void	print_export_data(char **data)
+void	print_export_data(char **data, t_obj *o)
 {
 	int		a;
 	int		len;
+	int		fd;
 	char	*key;
 
 	a = 0;
+	fd = init_logic_fd(o);
 	while (data[a])
 	{
-		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd("declare -x ", fd);
 		len = ft_strchr_len(data[a], '=');
 		if (len == -1)
-			ft_putendl_fd(data[a], 1);
+			ft_putendl_fd(data[a], fd);
 		else
 		{
 			key = ft_substr(data[a], 0, len + 1);
-			ft_putstr_fd(key, 1);
+			ft_putstr_fd(key, fd);
 			free(key);
-			ft_putstr_fd("\"", 1);
-			ft_putstr_fd(data[a] + len + 1, 1);
-			ft_putendl_fd("\"", 1);
+			ft_putstr_fd("\"", fd);
+			ft_putstr_fd(data[a] + len + 1, fd);
+			ft_putendl_fd("\"", fd);
 		}
 		a++;
 	}
@@ -113,6 +115,6 @@ void	sort_env(t_obj *o)
 		}
 		a++;
 	}
-	print_export_data(data);
+	print_export_data(data, o);
 	free(data);
 }

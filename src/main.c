@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **env)
 	o = init_o(env);
 	if (!o)
 		exit(EXIT_FAILURE);
+	shell_level(o);
 	loop(o);
 	free_env_struct(o);
 	free(o->heredoc);

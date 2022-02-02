@@ -38,7 +38,7 @@ void	single(t_obj *o)
 	else if (ft_strncmp(o->pipes->arg[0], "pwd", 3) == 0)
 		command_pwd(o);
 	else if (ft_strncmp(o->pipes->arg[0], "echo", 4) == 0)
-		command_echo(o->pipes);
+		command_echo(o->pipes, o);
 	else if (ft_strncmp(o->pipes->arg[0], "cd", 2) == 0)
 		command_cd(o);
 	else if (ft_strncmp(o->pipes->arg[0], "exit", 4) == 0)

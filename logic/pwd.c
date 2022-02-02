@@ -14,17 +14,19 @@
 
 void	command_pwd(t_obj *o)
 {
-	int	fd;
+	int		fd;
+	t_env	*tmp;
 
 	fd = init_logic_fd(o);
-	while (o->env_st != NULL)
+	tmp = o->env_st;
+	while (tmp != NULL)
 	{
-		if (ft_strncmp(o->env_st->env_str, "PWD=", 4) == 0)
+		if (ft_strncmp(tmp->env_str, "PWD=", 4) == 0)
 		{
-			ft_putendl_fd(o->env_st->env_str + 4, fd);
+			ft_putendl_fd(tmp->env_str + 4, fd);
 			break;
 		}
-		o->env_st = o->env_st->next;
+		tmp = tmp->next;
 	}
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
 	g_exit = 0;

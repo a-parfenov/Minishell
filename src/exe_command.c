@@ -50,7 +50,7 @@ void	child(char *command, t_obj *o, int fd_in, int fd_out)
 	if (o->is_pipe)
 		init_pipe_fds(fd_in, fd_out, o);
 	init_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
-	execve(argv[0], argv, o->env);
+	execve(argv[0], argv, build_envp(o->env_st));
 	micro_print_err(command);
 	free_arr(argv);
 	exit(127);
@@ -67,7 +67,7 @@ void	parent(pid_t pid, t_obj *o, int pipe_in, int pipe_out)
 	}
 	waitpid(pid, &status, 0);
 	g_exit = WEXITSTATUS(status);
-	printf("exit code %d\n", g_exit);
+//	printf("exit code %d\n", g_exit);
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
 	close(pipe_in);
 	close(pipe_out);

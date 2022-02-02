@@ -83,6 +83,7 @@ typedef struct s_obj
 	int		pipe_index;
 	int		parse_flag;
 	int		tmp_in;
+	int		count_arg;
 	char	*shlvl;
 	int		pipe_fd_in;
 	int		pipe_fd_out;
@@ -153,7 +154,7 @@ int		check_pipe_redirects(t_pipes *pipe);
 
 void	command_env(t_obj	*o);
 void	command_pwd(t_obj *o);
-void	command_echo(t_pipes	*pipes);
+void	command_echo(t_pipes	*pipes, t_obj *o);
 void	command_cd(t_obj *o);
 char	*get_address(void);
 int		command_exit(char **code);
