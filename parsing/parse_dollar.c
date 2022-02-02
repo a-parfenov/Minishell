@@ -12,13 +12,31 @@
 
 #include "../include/minishell.h"
 
+char	*get_env(char *dollar, t_obj *o)
+{
+	t_env	*tmp;
+	int		i;
+
+	tmp = o->env_st;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->env_str[i] == dollar[i])
+			i++;
+		if (tmp->env_str[i] == '=')
+			return (ft_substr(tmp->env_str, i + 1, ft_strlen(tmp->env_str)));
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
 static char	*init_dollar(char *start, int i, t_obj *o)
 {
 	char	*dollar;
 	char	*val;
 
 	dollar = ft_strdup(start + i + 1);
-	val = getenv(dollar);
+	val = get_env(dollar, o);
 	free(dollar);
 	if (val)
 		val = ft_strdup(val);

@@ -12,6 +12,15 @@
 
 #include "../include/minishell.h"
 
+void	here_handler(int sig)
+{
+	(void)sig;
+	errno = EINTR;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+}
+
 static char	*ft_read_from_fd(int fd)
 {
 	char	buffer[BUFFER_SIZE + 1];
@@ -53,13 +62,14 @@ static char	*combine(char **s_res)
 	return (str);
 }
 
-static void	concatenator(char **s_res, int fd)
+static void	concatenator(char **s_res, int fd, struct sigaction sa)
 {
 	char	*tmp;
 	char	*str;
 
 	while (!ft_strchr(*s_res, '\n'))
 	{
+		sigaction(SIGINT, &sa, NULL);
 		str = ft_read_from_fd(fd);
 		tmp = *s_res;
 		if (!str)
@@ -73,8 +83,13 @@ static void	concatenator(char **s_res, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*s_res = NULL;
+	static char			*s_res = NULL;
+	struct sigaction	sa;
 
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	sa.sa_handler = &here_handler;
+	sigaction(SIGINT, &sa, NULL);
 	if (fd < 0)
 		return (NULL);
 	if (!s_res)
@@ -83,6 +98,6 @@ char	*get_next_line(int fd)
 		if (!s_res)
 			return (NULL);
 	}
-	concatenator(&s_res, fd);
+	concatenator(&s_res, fd, sa);
 	return (combine(&s_res));
 }

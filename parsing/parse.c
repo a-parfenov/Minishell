@@ -83,8 +83,7 @@ void	parse(char *input, t_obj *o)
 		o->pipe_index = 0;
 		free_link(&o->link);
 		free_pipes(&o->pipes);
-		g_exit = 1;
-//		printf("exit code %d\n", g_exit);
+		g_exit = 258;
 		return ;
 	}
 	if (ft_strlen(input) == 0)
