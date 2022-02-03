@@ -19,27 +19,6 @@ char	**init_res(char **res, char **arg)
 	return (res);
 }
 
-char	**re_build_argv(char **arg)
-{
-	int		i;
-	int		size;
-	char	**res;
-
-	i = 0;
-	size = 0;
-	while (arg[i])
-	{
-		if (ft_strlen(arg[i]) != 0)
-			size++;
-		i++;
-	}
-	res = malloc(sizeof(char *) * size + 1);
-	if (!res)
-		return (NULL);
-	res = init_res(res, arg);
-	return (res);
-}
-
 void	child(char *command, t_obj *o, int fd_in, int fd_out)
 {
 	char	**argv;
@@ -67,7 +46,6 @@ void	parent(pid_t pid, t_obj *o, int pipe_in, int pipe_out)
 	}
 	waitpid(pid, &status, 0);
 	g_exit = WEXITSTATUS(status);
-//	printf("exit code %d\n", g_exit);
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
 	close(pipe_in);
 	close(pipe_out);

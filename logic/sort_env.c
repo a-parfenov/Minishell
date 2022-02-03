@@ -103,7 +103,7 @@ void	sort_env(t_obj *o)
 	while (data[a])
 	{
 		b = 0;
-		while (data[b+1])
+		while (data[b + 1])
 		{
 			if (ft_strncmp(data[b], data[b + 1], ft_strlen(data[b])) > 0)
 			{

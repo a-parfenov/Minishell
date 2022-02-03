@@ -146,6 +146,8 @@ char	*find_command(char **arg);
 char	*find_command_in_env(char *command);
 void	exe_heredoc(t_pipes *pipes);
 void	init_pipe_fds(int fd_in, int fd_out, t_obj *o);
+char	**init_res(char **res, char **arg);
+char	**re_build_argv(char **arg);
 
 void	exe(t_obj *o);
 void	fake_exe(t_obj *o);

@@ -40,7 +40,7 @@ void	mercury_repl_env(t_obj *o, char *str, char *way, int symb)
 		{
 			free(temp->env_str);
 			temp->env_str = ft_strjoin(str, way);
-			break;
+			break ;
 		}
 		temp = temp->next;
 	}
@@ -107,7 +107,8 @@ void	command_cd(t_obj *o)
 		get_variable_env(o, &way, "HOME=", 5);
 		mercury_repl_env(o, "PWD=", way, 4);
 	}
-	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 3) && ft_strlen(o->pipes->arg[1]) == 2)
+	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 3)
+		&& ft_strlen(o->pipes->arg[1]) == 2)
 		cd_back(o);
 	else if (!do_chdir(o->pipes->arg[1]))
 	{

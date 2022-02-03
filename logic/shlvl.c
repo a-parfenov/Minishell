@@ -66,7 +66,7 @@ void	shell_level(t_obj *o)
 		{
 			o->shlvl = ft_substr(tmp->env_str, 6, ft_strlen(tmp->env_str) - 6);
 			// printf("%s %s\n", o->env_st->env_str, o->shlvl);
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}

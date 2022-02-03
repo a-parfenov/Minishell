@@ -24,7 +24,7 @@ void	command_pwd(t_obj *o)
 		if (ft_strncmp(tmp->env_str, "PWD=", 4) == 0)
 		{
 			ft_putendl_fd(tmp->env_str + 4, fd);
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}
@@ -45,7 +45,6 @@ char	*get_address(void)
 	if (!buf)
 	{
 		free(copy);
-		
 		return (NULL);
 	}
 	return (buf);
