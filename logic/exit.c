@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 23:17:58 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/31 19:54:07 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:51:05 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	command_exit(char **code, t_obj *o)
 	{
 		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 1);
+		g_exit = 1;
 		return ;
 	}
 }

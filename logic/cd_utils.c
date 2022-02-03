@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 21:06:21 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/03 16:04:59 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:49:21 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_cd_prev(t_obj *o)
 	if (get_variable_env(o, &way_old, "OLDPWD=", 7))
 	{
 		ft_putendl_fd("minishell: cd: OLDPWD not set", 1);
+		g_exit = 1;
 		return (1);
 	}
 	if (chdir(way_old))
@@ -76,4 +77,21 @@ int	ft_cd_prev(t_obj *o)
 	mercury_repl_env(o, "OLDPWD=", way, 7);
 	mercury_repl_env(o, "PWD=", way_old, 4);
 	return (0);
+}
+
+void	one_arg(t_obj *o)
+{
+	char	*way;
+
+	if (get_variable_env(o, &way, "HOME=", 5))
+	{
+		print_error(" : HOME not set", "cd");
+		return ;
+	}
+	if (chdir(way))
+		do_chdir(way);
+	get_variable_env(o, &way, "PWD=", 4);
+	mercury_repl_env(o, "OLDPWD=", way, 7);
+	get_variable_env(o, &way, "HOME=", 5);
+	mercury_repl_env(o, "PWD=", way, 4);
 }

@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:34:28 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/03 16:07:32 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:54:32 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,10 @@ void	command_cd(t_obj *o)
 {
 	char	*way;
 
+	g_exit = 0;
 	mercury_repl_env(o, "_=", "cd", 2);
 	if (!o->pipes->arg[1])
-	{
-		if (get_variable_env(o, &way, "HOME=", 5))
-		{
-			print_error(" : HOME not set", "cd");
-			return ;
-		}
-		if (chdir(way))
-			do_chdir(way);
-		get_variable_env(o, &way, "PWD=", 4);
-		mercury_repl_env(o, "OLDPWD=", way, 7);
-		get_variable_env(o, &way, "HOME=", 5);
-		mercury_repl_env(o, "PWD=", way, 4);
-	}
+		one_arg(o);
 	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 2)
 		&& ft_strlen(o->pipes->arg[1]) == 2)
 		cd_back(o);

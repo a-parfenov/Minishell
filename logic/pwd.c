@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 23:03:56 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/03 16:22:20 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:41:51 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	command_pwd(t_obj *o)
 		{
 			ft_putendl_fd(tmp->env_str + 4, fd);
 			flag = 0;
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}

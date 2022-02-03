@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:45:39 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/24 11:49:06 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:48:02 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	print_error(char *error, char *str)
 	ft_putstr_fd("\033[0;36m\033[1mminishell ▸ \033[0m", 2);
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(error, 2);
+	g_exit = 1;
 }
 
 void	close_fds(int fd1, int fd2, int fd3)

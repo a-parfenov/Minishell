@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:27:14 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/02 22:17:09 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:42:06 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	shell_level(t_obj *o)
 		if (ft_strncmp(tmp->env_str, "SHLVL=", 6) == 0)
 		{
 			o->shlvl = ft_substr(tmp->env_str, 6, ft_strlen(tmp->env_str) - 6);
-			break;
+			break ;
 		}
 		tmp = tmp->next;
 	}
