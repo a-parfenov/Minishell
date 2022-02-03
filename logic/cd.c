@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:34:28 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/17 17:00:47 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:37:58 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	mercury_repl_env(t_obj *o, char *str, char *way, int symb)
 		if (ft_strncmp(temp->env_str, str, symb) == 0)
 		{
 			free(temp->env_str);
+			temp->env_str = NULL;
 			temp->env_str = ft_strjoin(str, way);
 			break ;
 		}
@@ -46,47 +47,51 @@ void	mercury_repl_env(t_obj *o, char *str, char *way, int symb)
 	}
 }
 
-int	do_chdir(char *str)
+static void	do_chdir(char *str)
 {
 	int	fd;
 
 	fd = 0;
-	if (chdir((const char *)str) < 0)
-	{
-		fd = open(str, O_DIRECTORY);
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(str, 2);
-		if (access(str, 0) < 0)
-			ft_putendl_fd(": No such file or directory", 2);
-		else if (fd < 0)
-			ft_putendl_fd(": Permission denied", 2);
-		if (fd > 0)
-			close(fd);
-		return (1);
-	}
-	return (0);
+	fd = open(str, O_DIRECTORY);
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(str, 2);
+	if (access(str, 0) < 0)
+		ft_putendl_fd(": No such file or directory", 2);
+	else if (fd < 0)
+		ft_putendl_fd(": Permission denied", 2);
+	if (fd > 0)
+		close(fd);
 }
 
-void	cd_back(t_obj *o)
+static void	ways_cd(t_obj *o, char *way)
 {
-	char	*way;
-	char	*buf;
-	char	*last;
-	char	*prev;
+	char	d[2];
+	char	*tmp;
+	char	*tmp2;
 
-	get_variable_env(o, &way, "PWD=", 4);
-	buf = get_address();
-	if (!buf)
-		buf = way;
-//	printf("||| %s\n", buf);
-	last = ft_strrchr(buf, '/');
-	prev = ft_substr(buf, 0, ft_strlen(buf) - ft_strlen(last));
-	if (!prev)
-		print_error("func back", "cd");
-	do_chdir(prev);
-	get_variable_env(o, &way, "PWD=", 4);
-	mercury_repl_env(o, "OLDPWD=", way, 7);
-	mercury_repl_env(o, "PWD=", prev, 4);
+	d[0] = '/';
+	d[1] = '\0';
+	if (chdir(o->pipes->arg[1]) > 0)
+	{
+		mercury_repl_env(o, "OLDPWD=", way, 7);
+		mercury_repl_env(o, "PWD=", o->pipes->arg[1], 4);
+		return ;
+	}
+	else if (o->pipes->arg[1][0] != d[0])
+	{
+		tmp2 = ft_strjoin(way, d);
+		tmp = ft_strjoin(tmp2, o->pipes->arg[1]);
+		free(tmp2);
+		if (chdir(tmp) >= 0)
+		{
+			mercury_repl_env(o, "OLDPWD=", way, 7);
+			mercury_repl_env(o, "PWD=", tmp, 4);
+		}
+		free(tmp);
+	}
+	else
+		do_chdir(o->pipes->arg[1]);
+	
 }
 
 void	command_cd(t_obj *o)
@@ -101,19 +106,22 @@ void	command_cd(t_obj *o)
 			print_error(" : HOME not set", "cd");
 			return ;
 		}
-		do_chdir(way);
+		if (chdir(way))
+			do_chdir(way);
 		get_variable_env(o, &way, "PWD=", 4);
 		mercury_repl_env(o, "OLDPWD=", way, 7);
 		get_variable_env(o, &way, "HOME=", 5);
 		mercury_repl_env(o, "PWD=", way, 4);
 	}
-	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 3)
+	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 2)
 		&& ft_strlen(o->pipes->arg[1]) == 2)
 		cd_back(o);
-	else if (!do_chdir(o->pipes->arg[1]))
+	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "-", 1)
+		&& ft_strlen(o->pipes->arg[1]) == 1)
+		ft_cd_home(o);
+	else
 	{
 		get_variable_env(o, &way, "PWD=", 4);
-		mercury_repl_env(o, "OLDPWD=", way, 7);
-		mercury_repl_env(o, "PWD=", o->pipes->arg[1], 4);
+		ways_cd(o, way);
 	}
 }
