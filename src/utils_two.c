@@ -48,14 +48,13 @@ char	*search_in_arr(char **arr, char *command)
 	return (full_path);
 }
 
-char	*find_command_in_env(char *command)
+char	*find_command_in_env(char *command, t_obj *o)
 {
 	char	*env;
 	char	*full_path;
 	char	**arr;
 
-	env = getenv("PATH");
-	if (!env)
+	if (get_variable_env(o, &env, "PATH=", 5))
 		return (NULL);
 	arr = ft_split(env, ':');
 	if (!arr)

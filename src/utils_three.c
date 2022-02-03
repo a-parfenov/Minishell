@@ -67,7 +67,7 @@ int	init_logic_fd(t_obj *o)
 	return (fd);
 }
 
-char	**re_build_argv(char **arg)
+char	**re_build_argv(char **arg, t_obj *o)
 {
 	int		i;
 	int		size;
@@ -84,6 +84,6 @@ char	**re_build_argv(char **arg)
 	res = malloc(sizeof(char *) * size + 1);
 	if (!res)
 		return (NULL);
-	res = init_res(res, arg);
+	res = init_res(res, arg, o);
 	return (res);
 }

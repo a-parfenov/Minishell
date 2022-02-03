@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	**init_res(char **res, char **arg)
+char	**init_res(char **res, char **arg, t_obj *o)
 {
 	int		i;
 	int		size;
@@ -15,7 +15,7 @@ char	**init_res(char **res, char **arg)
 	}
 	res[size] = NULL;
 	if (!ft_strchr(res[0], '/'))
-		res[0] = find_command_in_env(res[0]);
+		res[0] = find_command_in_env(res[0], o);
 	return (res);
 }
 
@@ -23,7 +23,7 @@ void	child(char *command, t_obj *o, int fd_in, int fd_out)
 {
 	char	**argv;
 
-	argv = re_build_argv(o->pipes->arg);
+	argv = re_build_argv(o->pipes->arg, o);
 	if (o->pipes->is_heredoc)
 		exe_heredoc(o->pipes);
 	if (o->is_pipe)
