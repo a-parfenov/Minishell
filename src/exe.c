@@ -21,7 +21,7 @@ void	init_o_fds(t_obj *o)
 		if (pipe(pipe_fd) < 0)
 		{
 			perror(ERROR_NAME);
-			return;
+			return ;
 		}
 		o->pipe_fd_in = pipe_fd[0];
 		o->pipe_fd_out = pipe_fd[1];

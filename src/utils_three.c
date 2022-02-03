@@ -66,3 +66,24 @@ int	init_logic_fd(t_obj *o)
 		fd = o->pipes->fd_out;
 	return (fd);
 }
+
+char	**re_build_argv(char **arg)
+{
+	int		i;
+	int		size;
+	char	**res;
+
+	i = 0;
+	size = 0;
+	while (arg[i])
+	{
+		if (ft_strlen(arg[i]) != 0)
+			size++;
+		i++;
+	}
+	res = malloc(sizeof(char *) * size + 1);
+	if (!res)
+		return (NULL);
+	res = init_res(res, arg);
+	return (res);
+}
