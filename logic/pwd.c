@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 23:03:56 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/31 12:50:57 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:22:20 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,30 @@
 void	command_pwd(t_obj *o)
 {
 	int		fd;
+	int		flag;
 	t_env	*tmp;
 
 	fd = init_logic_fd(o);
 	tmp = o->env_st;
+	flag = 1;
 	while (tmp != NULL)
 	{
 		if (ft_strncmp(tmp->env_str, "PWD=", 4) == 0)
 		{
 			ft_putendl_fd(tmp->env_str + 4, fd);
+			flag = 0;
 			break;
 		}
 		tmp = tmp->next;
 	}
+	if (flag)
+	{
+		print_error(COMMAND_TOKEN, "pwd: ");
+		g_exit = 127;
+	}
+	else
+		g_exit = 0;
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
-	g_exit = 0;
 }
 
 char	*get_address(void)
@@ -45,7 +54,6 @@ char	*get_address(void)
 	if (!buf)
 	{
 		free(copy);
-		
 		return (NULL);
 	}
 	return (buf);
