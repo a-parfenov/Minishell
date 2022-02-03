@@ -56,9 +56,9 @@ void	cd_back(t_obj *o)
 
 int	ft_cd_prev(t_obj *o)
 {
-	char *way;
-	char *way_old;
-	
+	char	*way;
+	char	*way_old;
+
 	if (get_variable_env(o, &way_old, "OLDPWD=", 7))
 	{
 		ft_putendl_fd("minishell: cd: OLDPWD not set", 1);

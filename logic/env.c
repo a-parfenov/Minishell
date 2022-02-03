@@ -14,7 +14,6 @@
 
 void	pwd_check(t_env	*tmp, t_obj	*o)
 {
-	// char	*way;
 	char	*adr;
 	char	*adr_check;
 
@@ -23,14 +22,9 @@ void	pwd_check(t_env	*tmp, t_obj	*o)
 		adr_check = get_address();
 		if (!adr_check)
 			return ;
-		printf("\n   %s\n", adr_check);
 		adr = tmp->env_str + 4;
-		printf("   %s\n\n", adr);
 		if (ft_strncmp(adr_check, adr, ft_strlen(adr_check)) != 0)
-		{
-			// mercury_repl_env(o, "OLDPWD=", adr, 7);
 			mercury_repl_env(o, "PWD=", adr_check, 4);
-		}
 		free(adr_check);
 	}
 }
@@ -50,6 +44,4 @@ void	command_env(t_obj	*o)
 	}
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
 	g_exit = 0;
-	// write(1, "\n", 1);
-	// write(1, "\n", 1);
 }

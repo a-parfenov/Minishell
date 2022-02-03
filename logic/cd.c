@@ -60,9 +60,10 @@ void	do_chdir(char *str)
 	else if (fd < 0)
 		ft_putendl_fd(": Permission denied", 2);
 	else
-		write(2,"\n", 1);
+		write(2, "\n", 1);
 	if (fd > 0)
 		close(fd);
+	g_exit = 1;
 }
 
 static void	ways_cd(t_obj *o, char *way)
@@ -119,9 +120,6 @@ void	command_cd(t_obj *o)
 	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], ".", 1)
 		&& ft_strlen(o->pipes->arg[1]) == 1)
 		return ;
-	// else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "-", 1)
-	// 	&& ft_strlen(o->pipes->arg[1]) == 1)
-	// 	ft_cd_prev(o);
 	else
 	{
 		get_variable_env(o, &way, "PWD=", 4);
