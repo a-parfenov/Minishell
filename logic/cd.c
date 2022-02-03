@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:34:28 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/02 22:37:58 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:07:32 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	mercury_repl_env(t_obj *o, char *str, char *way, int symb)
 	}
 }
 
-static void	do_chdir(char *str)
+void	do_chdir(char *str)
 {
 	int	fd;
 
@@ -59,27 +59,20 @@ static void	do_chdir(char *str)
 		ft_putendl_fd(": No such file or directory", 2);
 	else if (fd < 0)
 		ft_putendl_fd(": Permission denied", 2);
+	else
+		write(2,"\n", 1);
 	if (fd > 0)
 		close(fd);
 }
 
 static void	ways_cd(t_obj *o, char *way)
 {
-	char	d[2];
 	char	*tmp;
 	char	*tmp2;
 
-	d[0] = '/';
-	d[1] = '\0';
-	if (chdir(o->pipes->arg[1]) > 0)
+	if (o->pipes->arg[1][0] != '/')
 	{
-		mercury_repl_env(o, "OLDPWD=", way, 7);
-		mercury_repl_env(o, "PWD=", o->pipes->arg[1], 4);
-		return ;
-	}
-	else if (o->pipes->arg[1][0] != d[0])
-	{
-		tmp2 = ft_strjoin(way, d);
+		tmp2 = ft_strjoin(way, D);
 		tmp = ft_strjoin(tmp2, o->pipes->arg[1]);
 		free(tmp2);
 		if (chdir(tmp) >= 0)
@@ -87,11 +80,18 @@ static void	ways_cd(t_obj *o, char *way)
 			mercury_repl_env(o, "OLDPWD=", way, 7);
 			mercury_repl_env(o, "PWD=", tmp, 4);
 		}
+		else
+			do_chdir(o->pipes->arg[1]);
 		free(tmp);
+	}
+	else if (chdir(o->pipes->arg[1]) >= 0)
+	{
+		mercury_repl_env(o, "OLDPWD=", way, 7);
+		mercury_repl_env(o, "PWD=", o->pipes->arg[1], 4);
+		return ;
 	}
 	else
 		do_chdir(o->pipes->arg[1]);
-	
 }
 
 void	command_cd(t_obj *o)
@@ -116,9 +116,12 @@ void	command_cd(t_obj *o)
 	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "..", 2)
 		&& ft_strlen(o->pipes->arg[1]) == 2)
 		cd_back(o);
-	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "-", 1)
+	else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], ".", 1)
 		&& ft_strlen(o->pipes->arg[1]) == 1)
-		ft_cd_home(o);
+		return ;
+	// else if (o->pipes->arg[1] && !ft_strncmp(o->pipes->arg[1], "-", 1)
+	// 	&& ft_strlen(o->pipes->arg[1]) == 1)
+	// 	ft_cd_prev(o);
 	else
 	{
 		get_variable_env(o, &way, "PWD=", 4);
