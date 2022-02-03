@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/01/31 20:03:30 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:37:10 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,10 @@ void	shell_level(t_obj *o);
 void	add_new_data(t_obj *o, char *command);
 char	**build_envp(t_env *env);
 int		init_logic_fd(t_obj *o);
+void	cd_back(t_obj *o);
+int		get_variable_env(t_obj *o, char **adr, char *key_word, int n);
+void	mercury_repl_env(t_obj *o, char *str, char *way, int symb);
+int	ft_cd_home(t_obj *o);
 
 t_env	*lst_new_env(char *arg);
 int		lst_add_back(t_obj	*o, t_env *lst);
