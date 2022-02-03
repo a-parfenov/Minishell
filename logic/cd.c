@@ -62,7 +62,7 @@ int	do_chdir(char *str)
 			ft_putendl_fd(": Permission denied", 2);
 		if (fd > 0)
 			close(fd);
-			return (1);
+		return (1);
 	}
 	return (0);
 }

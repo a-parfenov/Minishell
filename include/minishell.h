@@ -143,11 +143,12 @@ void	close_fds(int fd1, int fd2, int fd3);
 void	init_fds(int fd_in, int fd_out, int fd_re_out);
 void	micro_print_err(char *command);
 char	*find_command(char **arg);
-char	*find_command_in_env(char *command);
+char	*find_command_in_env(char *command, t_obj *o);
 void	exe_heredoc(t_pipes *pipes);
 void	init_pipe_fds(int fd_in, int fd_out, t_obj *o);
-char	**init_res(char **res, char **arg);
-char	**re_build_argv(char **arg);
+char	**init_res(char **res, char **arg, t_obj *o);
+char	**re_build_argv(char **arg, t_obj *o);
+int		get_variable_env(t_obj *o, char **adr, char *key_word, int n);
 
 void	exe(t_obj *o);
 void	fake_exe(t_obj *o);
