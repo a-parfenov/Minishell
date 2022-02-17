@@ -1,5 +1,7 @@
 # Minishell
-School 42 project. Implementation of a simple shell <minishell>.
+School 42 project. Implementation of a simple shell <minishell>
+  
+[**subject.pdf**](https://cdn.intra.42.fr/pdf/pdf/40778/en.subject.pdf)  
 
 ## Features
 
