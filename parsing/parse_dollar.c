@@ -38,9 +38,7 @@ static char	*init_dollar(char *start, int i, t_obj *o)
 	dollar = ft_strdup(start + i + 1);
 	val = get_env(dollar, o);
 	free(dollar);
-	if (val)
-		val = ft_strdup(val);
-	else
+	if (!val)
 	{
 		o->is_was_dollar++;
 		val = ft_strdup("");

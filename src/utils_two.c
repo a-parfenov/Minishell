@@ -51,7 +51,10 @@ char	*search_in_arr(char **arr, char *command)
 		full_path = ft_strjoin(path, command);
 		free(path);
 		if (access(full_path, X_OK) == 0)
+		{
+			free(command);
 			return (full_path);
+		}
 		free(full_path);
 		i++;
 	}

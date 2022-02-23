@@ -30,7 +30,7 @@ void	putstr_while(char **arg, t_obj *o, int i, int option_n)
 
 	fd = init_logic_fd(o);
 	ft_putstr_fd(arg[i], fd);
-	if (arg[i + 1])
+	if (arg[i + 1] && ft_strlen(arg[i]) != 0)
 		ft_putchar_fd(' ', fd);
 	if (i + 1 == o->count_arg && option_n == 0)
 		ft_putchar_fd('\n', fd);

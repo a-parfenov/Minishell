@@ -22,6 +22,16 @@ void	here_helper(char *res, char *limit, char *str, t_obj *o)
 	free_two_str(limit, str);
 }
 
+int	check_str(char *str, char *limit, char *res)
+{
+	if (!str)
+	{
+		free_two_str(limit, res);
+		return (1);
+	}
+	return (0);
+}
+
 void	read_heredoc(char *limit, t_obj *o)
 {
 	char	*str;
@@ -34,11 +44,11 @@ void	read_heredoc(char *limit, t_obj *o)
 	res = ft_strdup("");
 	write(1, "> ", 2);
 	str = get_next_line(0);
-	if (!str)
+	if (check_str(str, limit, res))
 		return ;
 	while (ft_strcmp(str, limit) != 0)
 	{
-		if (!str)
+		if (check_str(str, limit, res))
 			return ;
 		write(1, "> ", 2);
 		tmp = res;

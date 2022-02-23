@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 19:34:54 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/04 11:04:11 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:47:20 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,6 @@ int		ft_cd_prev(t_obj *o);
 void	do_chdir(char *str);
 void	pwd_check(t_env	*tmp, t_obj	*o);
 void	one_arg(t_obj *o);
-char	*init_way(char *way);
 
 t_env	*lst_new_env(char *arg);
 int		lst_add_back(t_obj	*o, t_env *lst);

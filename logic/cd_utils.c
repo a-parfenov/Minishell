@@ -6,7 +6,7 @@
 /*   By: aleslie <aleslie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 21:06:21 by aleslie           #+#    #+#             */
-/*   Updated: 2022/02/04 11:04:00 by aleslie          ###   ########.fr       */
+/*   Updated: 2022/02/03 17:49:21 by aleslie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ static int	count_s(char *way, char	*d)
 	return (j);
 }
 
-char	*init_way(char *way)
-{
-	if (!way)
-		way = get_address();
-	else
-		way = ft_strdup(way);
-	return (way);
-}
-
 void	cd_back(t_obj *o)
 {
 	char	*way;
@@ -43,10 +34,8 @@ void	cd_back(t_obj *o)
 	char	*last;
 	char	*prev;
 
-	way = NULL;
 	pwd_check(o->env_st, o);
 	get_variable_env(o, &way, "PWD=", 4);
-	way = init_way(way);
 	buf = get_address();
 	if (!buf)
 		buf = ft_strdup(way);
@@ -61,7 +50,8 @@ void	cd_back(t_obj *o)
 		mercury_repl_env(o, "PWD=", D, 4);
 	else
 		mercury_repl_env(o, "PWD=", prev, 4);
-	free_three_str(buf, prev, way);
+	free(buf);
+	free(prev);
 }
 
 int	ft_cd_prev(t_obj *o)

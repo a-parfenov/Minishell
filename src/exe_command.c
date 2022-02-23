@@ -94,5 +94,6 @@ void	exe_command(t_obj *o)
 			return ;
 		}
 		exe_fork(command, o);
+		free(command);
 	}
 }

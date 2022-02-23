@@ -12,10 +12,12 @@
 
 #include "../include/minishell.h"
 
-void	execute_fork(pid_t pid, char *command, char *arg[], t_obj *o)
+void	execute_fork(char *command, char *arg[], t_obj *o)
 {
-	int	status;
+	int		status;
+	pid_t	pid;
 
+	pid = fork();
 	if (pid < 0)
 	{
 		perror(ERROR_NAME);
@@ -39,7 +41,6 @@ void	fake_exe(t_obj *o)
 {
 	char	*command;
 	char	*arg[3];
-	pid_t	pid;
 
 	close_fds(o->pipes->fd_in, o->pipes->fd_out, o->pipes->fd_re_out);
 	close(o->pipe_fd_in);
@@ -53,6 +54,5 @@ void	fake_exe(t_obj *o)
 	arg[0] = command;
 	arg[1] = "";
 	arg[2] = NULL;
-	pid = fork();
-	execute_fork(pid, command, arg, o);
+	execute_fork(command, arg, o);
 }
